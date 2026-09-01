@@ -1,0 +1,1402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SIWES — Student Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --muted: #64748b;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
+  --success: #16a34a;
+  --success-bg: #f0fdf4;
+  --warning: #d97706;
+  --warning-bg: #fffbeb;
+  --danger: #dc2626;
+  --danger-bg: #fef2f2;
+  --radius: 14px;
+  --shadow: 0 4px 12px rgba(15,23,42,.07);
+  --font: "Plus Jakarta Sans", sans-serif;
+  --mono: "JetBrains Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  min-height: 100vh;
+}
+
+/* ================= HEADER ================= */
+
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.topbar-inner {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.brand-text strong {
+  display: block;
+  font-size: 15px;
+}
+
+.brand-text span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.wallet {
+  font-family: var(--mono);
+  font-size: 11px;
+  background: #f1f5f9;
+  padding: 7px 9px;
+  border-radius: 7px;
+}
+
+/* ================= MAIN ================= */
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: auto;
+  padding: 28px 18px 50px;
+}
+
+/* ================= WELCOME ================= */
+
+.welcome {
+  margin-bottom: 24px;
+}
+
+.welcome h1 {
+  margin: 0 0 6px;
+  font-size: 25px;
+  letter-spacing: -.03em;
+}
+
+.welcome p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ================= CARDS ================= */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.card-head {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-head h2 {
+  font-size: 15px;
+  margin: 0;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+/* ================= STATS ================= */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-weight: 700;
+}
+
+.stat-value {
+  font-size: 25px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+/* ================= PROFILE ================= */
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.profile-item {
+  background: var(--bg);
+  padding: 12px;
+  border-radius: 9px;
+}
+
+.profile-item small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+
+.profile-item strong {
+  font-size: 13px;
+}
+
+/* ================= FORMS ================= */
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 11px 12px;
+  font-family: var(--font);
+  font-size: 13px;
+  background: white;
+  color: var(--text);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+}
+
+/* ================= BUTTON ================= */
+
+.btn {
+  border: 0;
+  border-radius: 9px;
+  padding: 11px 16px;
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-danger {
+  background: var(--danger-bg);
+  color: var(--danger);
+  border: 1px solid #fecaca;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+/* ================= STATUS ================= */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 20px;
+  padding: 5px 9px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.status-pending {
+  background: var(--warning-bg);
+  color: var(--warning);
+}
+
+.status-pending::before {
+  background: var(--warning);
+}
+
+.status-approved {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.status-approved::before {
+  background: var(--success);
+}
+
+.status-rejected {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.status-rejected::before {
+  background: var(--danger);
+}
+
+/* ================= CONTENT GRID ================= */
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+/* ================= SUBMISSIONS ================= */
+
+.submission {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.submission:last-child {
+  border-bottom: 0;
+}
+
+.submission-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.submission-title {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.submission-date {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.submission-note {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 7px;
+}
+
+/* ================= ALERT ================= */
+
+.alert {
+  padding: 12px 14px;
+  border-radius: 9px;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+
+.alert-error {
+  background: var(--danger-bg);
+  color: var(--danger);
+  border: 1px solid #fecaca;
+}
+
+.alert-success {
+  background: var(--success-bg);
+  color: var(--success);
+  border: 1px solid #bbf7d0;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 800px) {
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+
+  .container {
+    padding: 22px 14px 40px;
+  }
+
+  .wallet {
+    display: none;
+  }
+
+  .welcome h1 {
+    font-size: 21px;
+  }
+
+  .stats {
+    gap: 9px;
+  }
+
+  .stat {
+    padding: 14px;
+  }
+
+  .stat-value {
+    font-size: 21px;
+  }
+
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= TOP BAR ================= -->
+
+<header class="topbar">
+
+  <div class="topbar-inner">
+
+    <div class="brand">
+
+      <div class="logo">S</div>
+
+      <div class="brand-text">
+        <strong>SIWES Portal</strong>
+        <span>Student Dashboard</span>
+      </div>
+
+    </div>
+
+    <div class="wallet" id="walletDisplay">
+      Connecting...
+    </div>
+
+  </div>
+
+</header>
+
+
+<main class="container">
+
+  <!-- ================= WELCOME ================= -->
+
+  <section class="welcome">
+
+    <h1>
+      Welcome, <span id="studentName">Student</span>
+    </h1>
+
+    <p>
+      Manage your SIWES records, submit your work and track supervisor approvals.
+    </p>
+
+  </section>
+
+
+  <!-- ================= STATS ================= -->
+
+  <section class="stats">
+
+    <div class="stat">
+      <div class="stat-label">Submissions</div>
+      <div class="stat-value" id="submissionCount">0</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-label">Pending</div>
+      <div class="stat-value" id="pendingCount">0</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-label">Approved</div>
+      <div class="stat-value" id="approvedCount">0</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-label">Rejected</div>
+      <div class="stat-value" id="rejectedCount">0</div>
+    </div>
+
+  </section>
+
+
+  <!-- ================= PROFILE + SUBMIT ================= -->
+
+  <div class="content-grid">
+
+
+    <!-- PROFILE -->
+
+    <section class="card">
+
+      <div class="card-head">
+
+        <h2>Student Identity</h2>
+
+        <span class="status status-approved">
+          Verified
+        </span>
+
+      </div>
+
+      <div class="card-body">
+
+        <div class="profile-grid">
+
+          <div class="profile-item">
+            <small>Full Name</small>
+            <strong id="profileName">—</strong>
+          </div>
+
+          <div class="profile-item">
+            <small>Matric / ID</small>
+            <strong id="profileMatric">—</strong>
+          </div>
+
+          <div class="profile-item">
+            <small>Department</small>
+            <strong id="profileDepartment">—</strong>
+          </div>
+
+          <div class="profile-item">
+            <small>Role</small>
+            <strong id="profileRole">Student</strong>
+          </div>
+
+          <div class="profile-item" style="grid-column:1/-1">
+            <small>TON Wallet Address</small>
+            <strong
+              id="profileWallet"
+              style="font-family:var(--mono);font-size:11px;word-break:break-all;"
+            >
+              —
+            </strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SUBMIT -->
+
+    <section class="card">
+
+      <div class="card-head">
+
+        <h2>Submit SIWES Record</h2>
+
+      </div>
+
+      <div class="card-body">
+
+        <div id="submitMessage" hidden></div>
+
+        <form id="submissionForm">
+
+          <div class="form-group">
+
+            <label for="submissionTitle">
+              Submission Title
+            </label>
+
+            <input
+              id="submissionTitle"
+              type="text"
+              placeholder="e.g. Week 3 SIWES Report"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="submissionWeek">
+              Week
+            </label>
+
+            <input
+              id="submissionWeek"
+              type="number"
+              min="1"
+              placeholder="e.g. 3"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="submissionContent">
+              Work / Activity Description
+            </label>
+
+            <textarea
+              id="submissionContent"
+              placeholder="Describe the work you carried out during this period..."
+              required
+            ></textarea>
+
+          </div>
+
+
+          <button
+            type="submit"
+            class="btn btn-primary btn-full"
+            id="submitBtn"
+          >
+            Submit Record
+          </button>
+
+        </form>
+
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <!-- ================= SUBMISSIONS ================= -->
+
+  <section class="card">
+
+    <div class="card-head">
+
+      <h2>My Submissions</h2>
+
+    </div>
+
+    <div class="card-body">
+
+      <div id="submissionsList">
+
+        <p style="color:var(--muted);font-size:13px;text-align:center;">
+          Loading submissions...
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= LOGOUT ================= -->
+
+  <div style="margin-top:18px">
+
+    <button
+      id="logoutBtn"
+      class="btn btn-danger btn-full"
+    >
+      Disconnect Wallet
+    </button>
+
+  </div>
+
+</main>
+
+
+<script type="module">
+
+import { createClient }
+from "https://esm.sh/@supabase/supabase-js@2";
+
+
+// ============================================================
+// SUPABASE
+// ============================================================
+
+const SUPABASE_URL =
+  "https://dxfvrnjqckeoutlpeupk.supabase.co";
+
+
+const SUPABASE_ANON_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4ZnZybmpxY2tlb3V0bHBldXBrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyODgyODUsImV4cCI6MjEwMzg2NDI4NX0._scP1B2Rzyw4OPy8eCg0thpBzY0IwgweeWjys3dT-As";
+  
+
+const supabase =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
+
+// ============================================================
+// DOM
+// ============================================================
+
+const studentName =
+  document.getElementById("studentName");
+
+const profileName =
+  document.getElementById("profileName");
+
+const profileMatric =
+  document.getElementById("profileMatric");
+
+const profileDepartment =
+  document.getElementById("profileDepartment");
+
+const profileRole =
+  document.getElementById("profileRole");
+
+const profileWallet =
+  document.getElementById("profileWallet");
+
+const walletDisplay =
+  document.getElementById("walletDisplay");
+
+const submissionCount =
+  document.getElementById("submissionCount");
+
+const pendingCount =
+  document.getElementById("pendingCount");
+
+const approvedCount =
+  document.getElementById("approvedCount");
+
+const rejectedCount =
+  document.getElementById("rejectedCount");
+
+const submissionsList =
+  document.getElementById("submissionsList");
+
+const submissionForm =
+  document.getElementById("submissionForm");
+
+const submitBtn =
+  document.getElementById("submitBtn");
+
+const submitMessage =
+  document.getElementById("submitMessage");
+
+const logoutBtn =
+  document.getElementById("logoutBtn");
+
+
+// ============================================================
+// CURRENT USER
+// ============================================================
+
+let currentUser = null;
+
+
+// ============================================================
+// GET USER FROM LOCAL STORAGE
+// ============================================================
+
+function getStoredUser() {
+
+  try {
+
+    const raw =
+      localStorage.getItem("siwes_user");
+
+    if (!raw) return null;
+
+    return JSON.parse(raw);
+
+  } catch (error) {
+
+    console.error(
+      "Could not read stored user:",
+      error
+    );
+
+    return null;
+  }
+}
+
+
+// ============================================================
+// LOAD USER
+// ============================================================
+
+async function loadUser() {
+
+  const storedUser =
+    getStoredUser();
+
+  if (!storedUser) {
+
+    window.location.href = "index.html";
+
+    return;
+  }
+
+
+  currentUser =
+    storedUser;
+
+
+  // Make sure only students can access this page
+
+  if (
+    currentUser.role &&
+    currentUser.role !== "student"
+  ) {
+
+    redirectByRole(
+      currentUser.role
+    );
+
+    return;
+  }
+
+
+  renderUser();
+
+  await loadSubmissions();
+}
+
+
+// ============================================================
+// RENDER USER
+// ============================================================
+
+function renderUser() {
+
+  const name =
+    currentUser.full_name || "Student";
+
+  const matric =
+    currentUser.matric_number || "—";
+
+  const department =
+    currentUser.department || "—";
+
+  const role =
+    currentUser.role || "student";
+
+  const wallet =
+    currentUser.wallet_address || "—";
+
+
+  studentName.textContent =
+    name.split(" ")[0];
+
+
+  profileName.textContent =
+    name;
+
+  profileMatric.textContent =
+    matric;
+
+  profileDepartment.textContent =
+    department;
+
+  profileRole.textContent =
+    role.toUpperCase();
+
+  profileWallet.textContent =
+    wallet;
+
+
+  if (wallet.length > 14) {
+
+    walletDisplay.textContent =
+      wallet.substring(0, 7) +
+      "..." +
+      wallet.substring(
+        wallet.length - 7
+      );
+
+  } else {
+
+    walletDisplay.textContent =
+      wallet;
+  }
+
+}
+
+
+// ============================================================
+// REDIRECT BY ROLE
+// ============================================================
+
+function redirectByRole(role) {
+
+  if (role === "student") {
+
+    window.location.href =
+      "student.html";
+
+  } else if (role === "supervisor") {
+
+    window.location.href =
+      "supervisor.html";
+
+  } else if (role === "admin") {
+
+    window.location.href =
+      "admin.html";
+
+  } else {
+
+    window.location.href =
+      "index.html";
+  }
+
+}
+
+
+// ============================================================
+// LOAD SUBMISSIONS
+// ============================================================
+
+async function loadSubmissions() {
+
+  if (!currentUser?.wallet_address) {
+    return;
+  }
+
+
+  const {
+    data,
+    error
+  } = await supabase
+
+    .from("siwes_submissions")
+
+    .select("*")
+
+    .eq(
+      "student_wallet",
+      currentUser.wallet_address
+    )
+
+    .order(
+      "created_at",
+      {
+        ascending: false
+      }
+    );
+
+
+  if (error) {
+
+    console.error(
+      "Submission loading error:",
+      error
+    );
+
+    submissionsList.innerHTML = `
+      <p style="color:var(--danger);font-size:13px;">
+        Could not load submissions.
+      </p>
+    `;
+
+    return;
+  }
+
+
+  renderSubmissions(
+    data || []
+  );
+
+}
+
+
+// ============================================================
+// RENDER SUBMISSIONS
+// ============================================================
+
+function renderSubmissions(
+  submissions
+) {
+
+  submissionCount.textContent =
+    submissions.length;
+
+
+  const pending =
+    submissions.filter(
+      item =>
+        item.status === "pending"
+    ).length;
+
+
+  const approved =
+    submissions.filter(
+      item =>
+        item.status === "approved"
+    ).length;
+
+
+  const rejected =
+    submissions.filter(
+      item =>
+        item.status === "rejected"
+    ).length;
+
+
+  pendingCount.textContent =
+    pending;
+
+  approvedCount.textContent =
+    approved;
+
+  rejectedCount.textContent =
+    rejected;
+
+
+  if (!submissions.length) {
+
+    submissionsList.innerHTML = `
+      <p style="
+        color:var(--muted);
+        font-size:13px;
+        text-align:center;
+        padding:20px 0;
+      ">
+        You haven't submitted any SIWES records yet.
+      </p>
+    `;
+
+    return;
+  }
+
+
+  submissionsList.innerHTML =
+    submissions.map(
+      item => {
+
+        const status =
+          item.status || "pending";
+
+
+        const statusClass =
+          status === "approved"
+            ? "status-approved"
+            : status === "rejected"
+              ? "status-rejected"
+              : "status-pending";
+
+
+        const date =
+          item.created_at
+            ? new Date(
+                item.created_at
+              ).toLocaleDateString()
+            : "—";
+
+
+        return `
+
+          <div class="submission">
+
+            <div class="submission-top">
+
+              <div>
+
+                <div class="submission-title">
+                  ${escapeHtml(
+                    item.title ||
+                    "SIWES Submission"
+                  )}
+                </div>
+
+                <div class="submission-date">
+                  Week ${item.week || "—"}
+                  •
+                  ${date}
+                </div>
+
+              </div>
+
+              <span
+                class="status ${statusClass}"
+              >
+                ${status.toUpperCase()}
+              </span>
+
+            </div>
+
+
+            <div class="submission-note">
+
+              ${escapeHtml(
+                item.content ||
+                "No description provided."
+              )}
+
+            </div>
+
+          </div>
+
+        `;
+
+      }
+    ).join("");
+
+}
+
+
+// ============================================================
+// SUBMIT RECORD
+// ============================================================
+// ============================================================
+// SUBMIT RECORD
+// ============================================================
+
+submissionForm.addEventListener(
+  "submit",
+  async function(event) {
+
+    event.preventDefault();
+
+    if (!currentUser?.wallet_address) {
+
+      showMessage(
+        "No connected wallet found.",
+        "error"
+      );
+
+      return;
+    }
+
+    const title =
+      document.getElementById(
+        "submissionTitle"
+      ).value.trim();
+
+    const week =
+      document.getElementById(
+        "submissionWeek"
+      ).value;
+
+    const content =
+      document.getElementById(
+        "submissionContent"
+      ).value.trim();
+
+    if (!title || !week || !content) {
+
+      showMessage(
+        "Please complete all fields.",
+        "error"
+      );
+
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+
+    try {
+
+      // ========================================================
+      // FIND THE STUDENT ACCOUNT
+      // ========================================================
+
+      const {
+        data: student,
+        error: studentError
+      } = await supabase
+        .from("users")
+        .select("id, wallet_address, full_name, matric_number, department")
+        .eq(
+          "wallet_address",
+          currentUser.wallet_address
+        )
+        .eq(
+          "role",
+          "student"
+        )
+        .maybeSingle();
+
+      if (studentError) {
+        throw studentError;
+      }
+
+      if (!student) {
+
+        throw new Error(
+          "Student account not found for wallet: " +
+          currentUser.wallet_address
+        );
+
+      }
+
+      // ========================================================
+      // INSERT SUBMISSION
+      // ========================================================
+
+      const {
+        data,
+        error
+      } = await supabase
+        .from("siwes_submissions")
+        .insert({
+
+          student_id:
+            student.id,
+
+          student_wallet:
+            student.wallet_address,
+
+          student_name:
+            student.full_name,
+
+          matric_number:
+            student.matric_number,
+
+          department:
+            student.department,
+
+          title:
+            title,
+
+          week:
+            Number(week),
+
+          content:
+            content,
+
+          status:
+            "pending"
+
+        })
+        .select()
+        .single();
+
+      if (error) {
+        throw error;
+      }
+
+      // ========================================================
+      // SUCCESS
+      // ========================================================
+
+      showMessage(
+        "SIWES record submitted successfully.",
+        "success"
+      );
+
+      submissionForm.reset();
+
+      await loadSubmissions();
+
+    } catch (error) {
+
+      console.error(
+        "Submission error:",
+        error
+      );
+
+      showMessage(
+        error.message ||
+        "Could not submit record.",
+        "error"
+      );
+
+    } finally {
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit Record";
+
+    }
+
+  }
+);
+
+// ============================================================
+// MESSAGE
+// ============================================================
+
+function showMessage(
+  message,
+  type
+) {
+
+  submitMessage.hidden =
+    false;
+
+
+  submitMessage.className =
+    type === "success"
+      ? "alert alert-success"
+      : "alert alert-error";
+
+
+  submitMessage.textContent =
+    message;
+
+
+  setTimeout(
+    () => {
+
+      submitMessage.hidden =
+        true;
+
+    },
+    5000
+  );
+
+}
+
+
+// ============================================================
+// HTML ESCAPE
+// ============================================================
+
+function escapeHtml(
+  value
+) {
+
+  return String(value)
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+}
+
+
+// ============================================================
+// LOGOUT
+// ============================================================
+
+logoutBtn.addEventListener(
+  "click",
+  () => {
+
+    localStorage.removeItem(
+      "siwes_user"
+    );
+
+    window.location.href =
+      "index.html";
+
+  }
+);
+
+
+// ============================================================
+// START
+// ============================================================
+
+loadUser();
+
+</script>
+
+</body>
+</html>
