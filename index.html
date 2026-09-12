@@ -1,3523 +1,636 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
-/>
-
-<title>SIWES — Wallet Sign Up</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIWES Registry — Identity Sign-Up</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link
-  rel="preconnect"
-  href="https://fonts.gstatic.com"
-  crossorigin
->
-
-<link
-  href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-  rel="stylesheet"
->
-
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-
-:root {
-
-  --bg:#f8fafc;
-  --surface:#ffffff;
-  --border:#e2e8f0;
-
-  --text-main:#0f172a;
-  --text-muted:#64748b;
-
-  --primary:#2563eb;
-  --primary-hover:#1d4ed8;
-  --primary-light:#eff6ff;
-
-  --success:#16a34a;
-  --success-bg:#f0fdf4;
-
-  --danger:#dc2626;
-  --danger-bg:#fef2f2;
-
-  --warning:#d97706;
-  --warning-bg:#fffbeb;
-
-  --radius-lg:18px;
-  --radius-md:10px;
-
-  --shadow:
-    0 10px 25px -5px rgb(0 0 0 / .08),
-    0 8px 10px -6px rgb(0 0 0 / .05);
-
-  --font:
-    "Plus Jakarta Sans",
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
-
-  --font-mono:
-    "JetBrains Mono",
-    monospace;
+:root{
+  --ink:#141b2e; --indigo:#1f2f52; --indigo-2:#2c4270;
+  --paper:#f6f4ec; --paper-2:#efece1; --rule:#d9d3c0;
+  --text:#1c2333; --muted:#6b6a5e;
+  --accent:#0f7a5c; --accent-hover:#0b5f47; --accent-light:#e6f3ee;
+  --warn:#a15c00; --warn-bg:#fbeed9;
+  --danger:#9c2b2b; --danger-bg:#fbeaea;
+  --serif:"Fraunces",Georgia,serif; --sans:"Inter",-apple-system,sans-serif; --mono:"JetBrains Mono",monospace;
 }
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--sans);color:var(--text);background:var(--paper);-webkit-font-smoothing:antialiased}
 
+.shell{min-height:100vh;display:flex}
 
-* {
-  box-sizing:border-box;
+/* ===== SIDE PANEL ===== */
+.side{
+  flex:0 0 40%; position:relative; overflow:hidden; color:#eef1f8;
+  background:linear-gradient(165deg,var(--indigo),var(--ink));
+  padding:52px 44px; display:flex; flex-direction:column; justify-content:space-between;
 }
-
-
-body {
-
-  margin:0;
-
-  min-height:100vh;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  padding:24px 16px;
-
-  background:var(--bg);
-
-  color:var(--text-main);
-
-  font-family:var(--font);
-
-  -webkit-font-smoothing:antialiased;
+.side::before{
+  content:""; position:absolute; inset:0; opacity:.08; pointer-events:none;
+  background:repeating-linear-gradient(180deg, transparent 0 37px, #fff 37px 38px);
 }
+.mark{position:relative}
+.mark .kicker{font-size:12px; letter-spacing:.14em; color:#a9b7dd; margin-bottom:18px}
+.mark h1{font-family:var(--serif); font-size:42px; font-weight:600; line-height:1.08; margin:0 0 16px; letter-spacing:-.01em}
+.mark p{font-size:14.5px; line-height:1.65; color:#c4cce4; max-width:34ch; margin:0}
 
+.roles-legend{position:relative; display:flex; flex-direction:column; gap:14px}
+.roles-legend .row{display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid rgba(255,255,255,.14); padding-top:11px; font-size:13px}
+.roles-legend .row span:first-child{color:#dfe4f2; font-weight:500}
+.roles-legend .row span:last-child{color:#93a1c6; font-family:var(--mono); font-size:11.5px}
 
-.container {
+/* ===== MAIN ===== */
+.main{flex:1; display:flex; align-items:center; justify-content:center; padding:40px 24px}
+.panel{width:100%; max-width:420px}
 
-  width:100%;
+.panel-head{margin-bottom:26px}
+.panel-head .eyebrow{font-size:12px; color:var(--muted); letter-spacing:.08em; margin-bottom:6px}
+.panel-head h2{font-family:var(--serif); font-size:24px; font-weight:600; margin:0; letter-spacing:-.01em}
 
-  max-width:440px;
+.card{background:#fff; border:1px solid var(--rule); border-top:3px solid var(--indigo); border-radius:4px; padding:28px; box-shadow:0 1px 2px rgba(20,27,46,.04)}
+
+.badge{display:inline-flex; align-items:center; gap:6px; padding:4px 9px; border-radius:3px; background:var(--accent-light); color:var(--accent); font-size:11px; font-weight:600}
+.badge::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--accent)}
+.badge.warn{background:var(--warn-bg); color:var(--warn)}
+.badge.warn::before{background:var(--warn)}
+
+.desc{margin:0 0 20px; color:var(--muted); font-size:13.5px; line-height:1.6}
+
+#ton-connect-button{width:100%; min-height:46px; display:flex; justify-content:center}
+
+.wallet-box{display:flex; align-items:center; gap:9px; margin-bottom:18px; padding:10px 12px; background:var(--paper-2); border:1px solid var(--rule); border-radius:4px}
+.wallet-dot{width:8px; height:8px; border-radius:50%; background:var(--accent); flex-shrink:0}
+.wallet-address{overflow:hidden; font-family:var(--mono); font-size:11px; text-overflow:ellipsis; white-space:nowrap}
+
+/* role list — ledger rows, not boxed cards */
+.role-list{display:flex; flex-direction:column; margin-top:6px}
+.role-row{
+  width:100%; display:flex; align-items:center; gap:13px; text-align:left; cursor:pointer;
+  background:none; border:0; border-top:1px solid var(--rule); padding:14px 4px;
+  border-left:3px solid transparent; transition:border-color .12s, background .12s;
 }
+.role-list .role-row:last-child{border-bottom:1px solid var(--rule)}
+.role-row:hover{background:var(--paper-2); border-left-color:var(--accent)}
+.role-glyph{width:38px; height:38px; flex-shrink:0; display:flex; align-items:center; justify-content:center; border-radius:3px; background:var(--indigo); color:#fff; font-family:var(--serif); font-size:16px}
+.role-info{flex:1}
+.role-name{font-size:14px; font-weight:600}
+.role-desc{font-size:11.5px; color:var(--muted); margin-top:2px}
+.role-arrow{color:#b7b2a0; font-size:16px}
 
+.field{margin-bottom:15px}
+.field label{display:block; margin-bottom:6px; font-size:12.5px; font-weight:600}
+.field input{width:100%; padding:11px 12px; border:1px solid var(--rule); border-radius:4px; background:#fff; font-family:var(--sans); font-size:13.5px}
+.field input:focus{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px rgba(31,47,82,.1)}
+.field input::placeholder{color:#a8a495}
 
-/* =====================================================
-   BRAND
-===================================================== */
+.notice{margin-bottom:18px; padding:13px 14px; background:var(--warn-bg); border:1px solid #f0dcae; border-radius:4px; font-size:12px; line-height:1.6; color:#6b4300}
+.notice strong{display:block; margin-bottom:3px; color:#4d3100}
 
-.brand {
+.selected-role{display:flex; align-items:center; gap:10px; margin-bottom:18px; padding:10px 12px; background:var(--accent-light); border:1px solid #c9e6da; border-radius:4px}
+.selected-role .glyph{font-size:18px; font-family:var(--serif)}
+.selected-role .txt{flex:1; font-size:12px; color:var(--accent-hover)}
+.selected-role .txt strong{display:block; font-size:13px; color:var(--text)}
 
-  text-align:center;
+.btn{width:100%; display:inline-flex; align-items:center; justify-content:center; padding:12px 16px; border:0; border-radius:4px; background:var(--indigo); color:#fff; font-family:var(--sans); font-size:13.5px; font-weight:600; cursor:pointer; transition:background .12s}
+.btn:hover{background:var(--ink)}
+.btn:disabled{opacity:.6; cursor:not-allowed}
+.btn-accent{background:var(--accent)}
+.btn-accent:hover{background:var(--accent-hover)}
+.btn-secondary{margin-top:9px; background:transparent; color:var(--muted); border:1px solid var(--rule)}
+.btn-secondary:hover{background:var(--paper-2); color:var(--text)}
 
-  margin-bottom:24px;
+.message{margin-top:14px; padding:11px 13px; border-radius:4px; font-size:12.5px; line-height:1.5}
+.error{background:var(--danger-bg); border:1px solid #f0c9c9; color:var(--danger)}
+
+.spinner{width:14px; height:14px; display:inline-block; margin-right:8px; border:2px solid rgba(255,255,255,.35); border-top-color:#fff; border-radius:50%; animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.existing-box{margin-bottom:18px; padding:16px; background:var(--paper-2); border-radius:4px}
+.existing-box .label{font-size:12px; color:var(--muted); margin-bottom:4px}
+.existing-box .name{font-family:var(--serif); font-size:19px; font-weight:600}
+.existing-box .role-tag{margin-top:6px; font-size:11.5px; color:var(--muted); letter-spacing:.04em}
+.existing-box .meta{margin-top:11px; font-size:12px; color:var(--muted); line-height:1.75}
+
+.foot{text-align:center; margin-top:16px; color:#a8a495; font-size:11px}
+
+[hidden]{display:none!important}
+
+@media(max-width:880px){
+  .shell{flex-direction:column}
+  .side{flex:0 0 auto; padding:34px 26px}
+  .mark h1{font-size:30px}
+  .roles-legend{display:none}
+  .main{padding:32px 20px}
 }
-
-
-.brand-logo {
-
-  width:54px;
-  height:54px;
-
-  display:inline-flex;
-
-  align-items:center;
-  justify-content:center;
-
-  border-radius:15px;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--primary),
-      #1e40af
-    );
-
-  color:#fff;
-
-  font-size:23px;
-
-  font-weight:700;
-
-  box-shadow:
-    0 5px 15px
-    rgba(37,99,235,.25);
-
-  margin-bottom:14px;
-}
-
-
-.brand h1 {
-
-  margin:0 0 6px;
-
-  font-size:23px;
-
-  font-weight:700;
-
-  letter-spacing:-.025em;
-}
-
-
-.brand p {
-
-  margin:0;
-
-  color:var(--text-muted);
-
-  font-size:13.5px;
-
-  line-height:1.55;
-}
-
-
-/* =====================================================
-   CARD
-===================================================== */
-
-.card {
-
-  background:var(--surface);
-
-  border:1px solid var(--border);
-
-  border-radius:var(--radius-lg);
-
-  padding:28px;
-
-  box-shadow:var(--shadow);
-}
-
-
-.card-header {
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  gap:10px;
-
-  margin-bottom:18px;
-}
-
-
-.card-title {
-
-  margin:0;
-
-  font-size:11px;
-
-  font-weight:700;
-
-  letter-spacing:.08em;
-
-  text-transform:uppercase;
-
-  color:var(--text-muted);
-}
-
-
-/* =====================================================
-   BADGES
-===================================================== */
-
-.badge {
-
-  display:inline-flex;
-
-  align-items:center;
-
-  gap:6px;
-
-  padding:5px 10px;
-
-  border-radius:20px;
-
-  background:var(--primary-light);
-
-  color:var(--primary);
-
-  font-size:11px;
-
-  font-weight:600;
-
-  white-space:nowrap;
-}
-
-
-.badge::before {
-
-  content:"";
-
-  width:6px;
-  height:6px;
-
-  border-radius:50%;
-
-  background:var(--primary);
-}
-
-
-.badge.success {
-
-  background:var(--success-bg);
-
-  color:var(--success);
-}
-
-
-.badge.success::before {
-
-  background:var(--success);
-}
-
-
-.badge.warning {
-
-  background:var(--warning-bg);
-
-  color:var(--warning);
-}
-
-
-.badge.warning::before {
-
-  background:var(--warning);
-}
-
-
-/* =====================================================
-   DESCRIPTION
-===================================================== */
-
-.description {
-
-  margin:0 0 22px;
-
-  color:var(--text-muted);
-
-  font-size:14px;
-
-  line-height:1.65;
-}
-
-
-/* =====================================================
-   WALLET
-===================================================== */
-
-#ton-connect-button {
-
-  width:100%;
-
-  min-height:48px;
-
-  display:flex;
-
-  justify-content:center;
-}
-
-
-.wallet-box {
-
-  display:flex;
-
-  align-items:center;
-
-  gap:10px;
-
-  margin-bottom:20px;
-
-  padding:11px 12px;
-
-  background:#f8fafc;
-
-  border:1px solid var(--border);
-
-  border-radius:var(--radius-md);
-}
-
-
-.wallet-dot {
-
-  width:9px;
-  height:9px;
-
-  flex-shrink:0;
-
-  border-radius:50%;
-
-  background:var(--success);
-}
-
-
-.wallet-address {
-
-  overflow:hidden;
-
-  font-family:var(--font-mono);
-
-  font-size:11px;
-
-  color:var(--text-main);
-
-  text-overflow:ellipsis;
-
-  white-space:nowrap;
-}
-
-
-/* =====================================================
-   ROLE SELECTION
-===================================================== */
-
-.role-grid {
-
-  display:grid;
-
-  grid-template-columns:1fr;
-
-  gap:12px;
-
-  margin-top:8px;
-}
-
-
-.role-card {
-
-  width:100%;
-
-  padding:17px;
-
-  display:flex;
-
-  align-items:center;
-
-  gap:14px;
-
-  text-align:left;
-
-  border:1px solid var(--border);
-
-  border-radius:14px;
-
-  background:#fff;
-
-  color:var(--text-main);
-
-  cursor:pointer;
-
-  transition:
-    border-color .15s ease,
-    background .15s ease,
-    transform .1s ease,
-    box-shadow .15s ease;
-}
-
-
-.role-card:hover {
-
-  border-color:var(--primary);
-
-  background:var(--primary-light);
-
-}
-
-
-.role-card:active {
-
-  transform:scale(.99);
-}
-
-
-.role-icon {
-
-  width:46px;
-  height:46px;
-
-  flex-shrink:0;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  border-radius:12px;
-
-  background:var(--primary-light);
-
-  font-size:22px;
-}
-
-
-.role-info {
-
-  flex:1;
-}
-
-
-.role-name {
-
-  font-size:14px;
-
-  font-weight:700;
-
-  margin-bottom:3px;
-}
-
-
-.role-description {
-
-  font-size:11px;
-
-  color:var(--text-muted);
-
-  line-height:1.4;
-}
-
-
-.role-arrow {
-
-  color:#94a3b8;
-
-  font-size:18px;
-}
-
-
-/* =====================================================
-   FORM
-===================================================== */
-
-.field {
-
-  margin-bottom:16px;
-}
-
-
-.field label {
-
-  display:block;
-
-  margin-bottom:6px;
-
-  font-size:13px;
-
-  font-weight:600;
-}
-
-
-.field input,
-.field select {
-
-  width:100%;
-
-  padding:12px 13px;
-
-  border:1px solid var(--border);
-
-  border-radius:var(--radius-md);
-
-  background:#fff;
-
-  color:var(--text-main);
-
-  font-family:var(--font);
-
-  font-size:14px;
-
-  transition:
-    border-color .15s ease,
-    box-shadow .15s ease;
-}
-
-
-.field input:focus,
-.field select:focus {
-
-  outline:none;
-
-  border-color:var(--primary);
-
-  box-shadow:
-    0 0 0 3px
-    rgba(37,99,235,.12);
-}
-
-
-.field input::placeholder {
-
-  color:#94a3b8;
-}
-
-
-/* =====================================================
-   PASSWORD
-===================================================== */
-
-.password-box {
-
-  margin-bottom:20px;
-
-  padding:15px;
-
-  background:var(--warning-bg);
-
-  border:1px solid #fde68a;
-
-  border-radius:var(--radius-md);
-
-  font-size:12px;
-
-  line-height:1.6;
-
-  color:#92400e;
-}
-
-
-.password-box strong {
-
-  display:block;
-
-  margin-bottom:4px;
-
-  color:#78350f;
-}
-
-
-/* =====================================================
-   SELECTED ROLE
-===================================================== */
-
-.selected-role {
-
-  display:flex;
-
-  align-items:center;
-
-  gap:10px;
-
-  margin-bottom:20px;
-
-  padding:11px 12px;
-
-  background:var(--primary-light);
-
-  border:1px solid rgba(37,99,235,.15);
-
-  border-radius:var(--radius-md);
-}
-
-
-.selected-role-icon {
-
-  font-size:20px;
-}
-
-
-.selected-role-text {
-
-  flex:1;
-
-  font-size:12px;
-
-  color:var(--primary);
-
-}
-
-
-.selected-role-text strong {
-
-  display:block;
-
-  font-size:13px;
-
-  margin-bottom:2px;
-}
-
-
-/* =====================================================
-   BUTTON
-===================================================== */
-
-.btn {
-
-  width:100%;
-
-  display:inline-flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  padding:13px 18px;
-
-  border:none;
-
-  border-radius:var(--radius-md);
-
-  background:var(--primary);
-
-  color:#fff;
-
-  font-family:var(--font);
-
-  font-size:14px;
-
-  font-weight:600;
-
-  cursor:pointer;
-
-  transition:
-    background .15s ease,
-    transform .1s ease;
-}
-
-
-.btn:hover {
-
-  background:var(--primary-hover);
-}
-
-
-.btn:active {
-
-  transform:scale(.99);
-}
-
-
-.btn:disabled {
-
-  opacity:.65;
-
-  cursor:not-allowed;
-}
-
-
-.btn-secondary {
-
-  margin-top:10px;
-
-  background:transparent;
-
-  color:var(--text-muted);
-
-  border:1px solid var(--border);
-}
-
-
-.btn-secondary:hover {
-
-  background:var(--bg);
-
-  color:var(--text-main);
-}
-
-
-.btn-back {
-
-  margin-bottom:12px;
-
-  background:transparent;
-
-  color:var(--text-muted);
-
-  border:1px solid var(--border);
-}
-
-
-.btn-back:hover {
-
-  background:var(--bg);
-
-  color:var(--text-main);
-}
-
-
-/* =====================================================
-   MESSAGE
-===================================================== */
-
-.message {
-
-  margin-top:16px;
-
-  padding:12px 14px;
-
-  border-radius:var(--radius-md);
-
-  font-size:13px;
-
-  line-height:1.5;
-}
-
-
-.error {
-
-  background:var(--danger-bg);
-
-  border:
-    1px solid
-    rgba(220,38,38,.18);
-
-  color:var(--danger);
-}
-
-
-.info {
-
-  background:var(--primary-light);
-
-  border:
-    1px solid
-    rgba(37,99,235,.15);
-
-  color:var(--primary);
-}
-
-
-/* =====================================================
-   SPINNER
-===================================================== */
-
-.spinner {
-
-  width:16px;
-  height:16px;
-
-  display:inline-block;
-
-  margin-right:8px;
-
-  border:
-    2px solid
-    rgba(255,255,255,.3);
-
-  border-top-color:#fff;
-
-  border-radius:50%;
-
-  animation:
-    spin .8s linear infinite;
-}
-
-
-@keyframes spin {
-
-  to {
-    transform:rotate(360deg);
-  }
-
-}
-
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-.footer {
-
-  text-align:center;
-
-  margin-top:18px;
-
-  color:#94a3b8;
-
-  font-size:11px;
-
-  line-height:1.5;
-}
-
-
-[hidden] {
-
-  display:none !important;
-}
-
-
-@media(max-width:480px) {
-
-  body {
-
-    padding:18px 12px;
-  }
-
-  .card {
-
-    padding:22px 18px;
-  }
-
-  .brand {
-
-    margin-bottom:20px;
-  }
-
-}
-
 </style>
-
 </head>
-
-
 <body>
 
+<div class="shell">
 
-<div class="container">
+  <aside class="side">
+    <div class="mark">
+      <div class="kicker">Blockchain-verified SIWES records</div>
+      <h1>SIWES<br>Registry</h1>
+      <p>Connect a TON wallet to create or access your Industrial Work Experience identity — logbooks, supervisor sign-off, and credit conversion, all verifiable on-chain.</p>
+    </div>
+    <div class="roles-legend">
+      <div class="row"><span>Student</span><span>logbook &amp; clearance</span></div>
+      <div class="row"><span>Supervisor</span><span>verification &amp; grading</span></div>
+      <div class="row"><span>HOD</span><span>credit conversion</span></div>
+      <div class="row"><span>Administrator</span><span>system oversight</span></div>
+    </div>
+  </aside>
 
+  <main class="main">
+    <div class="panel">
 
-<!-- =====================================================
-     BRAND
-===================================================== -->
+      <section id="stateLoading" class="card">
+        <p style="text-align:center;color:var(--muted);margin:8px 0;font-size:13.5px">Initializing wallet connection…</p>
+      </section>
 
-<header class="brand">
+      <section id="stateConnect" class="card" hidden>
+        <div class="panel-head"><div class="eyebrow">Step 1</div><h2>Connect your wallet</h2></div>
+        <p class="desc">Connect your TON wallet to create or access your SIWES identity.</p>
+        <div id="ton-connect-button"></div>
+        <div id="connectError" class="message error" hidden></div>
+      </section>
 
-  <div class="brand-logo">
-    S
-  </div>
-
-  <h1>
-    SIWES Portal
-  </h1>
-
-  <p>
-    Secure Industrial Work Experience Scheme
-    identity and verification portal.
-  </p>
-
-</header>
-
-
-<!-- =====================================================
-     LOADING
-===================================================== -->
-
-<section
-  id="stateLoading"
-  class="card"
->
-
-  <p
-    style="
-      text-align:center;
-      color:var(--text-muted);
-      margin:10px 0;
-      font-size:14px;
-    "
-  >
-    Initializing wallet connection...
-  </p>
-
-</section>
-
-
-<!-- =====================================================
-     CONNECT WALLET
-===================================================== -->
-
-<section
-  id="stateConnect"
-  class="card"
-  hidden
->
-
-  <div class="card-header">
-
-    <h2 class="card-title">
-      Authentication
-    </h2>
-
-    <span class="badge">
-      Wallet Required
-    </span>
-
-  </div>
-
-
-  <p class="description">
-
-    Connect your TON wallet to create or access
-    your SIWES identity.
-
-  </p>
-
-
-  <div id="ton-connect-button"></div>
-
-
-  <div
-    id="connectError"
-    class="message error"
-    hidden
-  ></div>
-
-</section>
-
-
-<!-- =====================================================
-     ROLE SELECTION
-===================================================== -->
-
-<section
-  id="stateRole"
-  class="card"
-  hidden
->
-
-  <div class="card-header">
-
-    <h2 class="card-title">
-      Account Type
-    </h2>
-
-    <span class="badge">
-      New Account
-    </span>
-
-  </div>
-
-
-  <p class="description">
-
-    Choose the type of SIWES account you want
-    to create.
-
-  </p>
-
-
-  <div class="wallet-box">
-
-    <span class="wallet-dot"></span>
-
-    <span
-      id="roleWalletDisplay"
-      class="wallet-address"
-    >
-      —
-    </span>
-
-  </div>
-
-
-  <div class="role-grid">
-
-
-    <!-- STUDENT -->
-
-    <button
-      type="button"
-      class="role-card"
-      data-role="student"
-    >
-
-      <div class="role-icon">
-        🎓
-      </div>
-
-      <div class="role-info">
-
-        <div class="role-name">
-          Student
+      <section id="stateRole" class="card" hidden>
+        <div class="panel-head"><div class="eyebrow">Step 2 · New account</div><h2>Choose account type</h2></div>
+        <div class="wallet-box"><span class="wallet-dot"></span><span id="roleWalletDisplay" class="wallet-address">—</span></div>
+        <div class="role-list">
+          <button type="button" class="role-row" data-role="student"><div class="role-glyph">St</div><div class="role-info"><div class="role-name">Student</div><div class="role-desc">Register as a SIWES trainee</div></div><div class="role-arrow">→</div></button>
+          <button type="button" class="role-row" data-role="supervisor"><div class="role-glyph">Sv</div><div class="role-info"><div class="role-name">Supervisor</div><div class="role-desc">Register as an institutional supervisor</div></div><div class="role-arrow">→</div></button>
+          <button type="button" class="role-row" data-role="hod"><div class="role-glyph">Hd</div><div class="role-info"><div class="role-name">Head of Department</div><div class="role-desc">Verify scores and issue academic credits</div></div><div class="role-arrow">→</div></button>
+          <button type="button" class="role-row" data-role="admin"><div class="role-glyph">Ad</div><div class="role-info"><div class="role-name">Administrator</div><div class="role-desc">Register as a SIWES coordinator</div></div><div class="role-arrow">→</div></button>
         </div>
+        <div id="roleError" class="message error" hidden></div>
+      </section>
 
-        <div class="role-description">
-          Register as a SIWES student trainee
+      <section id="statePassword" class="card" hidden>
+        <div class="panel-head"><div class="eyebrow">Authorization</div><h2>Restricted account</h2></div>
+        <div class="selected-role"><div id="passwordRoleIcon" class="glyph">🔐</div><div class="txt"><strong id="passwordRoleName">Staff Account</strong>Authorization required before registration.</div></div>
+        <div class="notice"><strong>Restricted account</strong>Supervisor, HOD and Administrator accounts require the authorized SIWES password before they can be created.</div>
+        <div class="field"><label for="staffPassword">Authorization password</label><input type="password" id="staffPassword" placeholder="Enter authorization password" autocomplete="off"></div>
+        <button type="button" id="verifyPasswordBtn" class="btn">Verify password</button>
+        <button type="button" id="passwordBackBtn" class="btn btn-secondary">Back</button>
+        <div id="passwordError" class="message error" hidden></div>
+      </section>
+
+      <section id="stateRegister" class="card" hidden>
+        <div class="panel-head"><div class="eyebrow">Step 3</div><h2>Create your identity</h2></div>
+        <div class="selected-role"><div id="registerRoleIcon" class="glyph">🎓</div><div class="txt"><strong id="registerRoleName">Student Account</strong>Complete your SIWES profile below.</div></div>
+        <div class="wallet-box"><span class="wallet-dot"></span><span id="walletDisplay" class="wallet-address">—</span></div>
+        <form id="registerForm">
+          <div class="field"><label for="full_name">Full name</label><input type="text" id="full_name" name="full_name" placeholder="Enter your full name" autocomplete="name" required></div>
+          <div class="field"><label id="idLabel" for="matric_number">Matric number</label><input type="text" id="matric_number" name="matric_number" placeholder="" required></div>
+          <div id="courseField" class="field"><label for="course">Course</label><input type="text" id="course" name="course" placeholder="e.g. CSC 317"></div>
+          <div class="field"><label for="department">Department</label><input type="text" id="department" name="department" placeholder="e.g. Computer Science" required></div>
+          <div class="field"><label for="institution">Institution</label><input type="text" id="institution" name="institution" placeholder=" " required></div>
+          <button type="submit" id="regBtn" class="btn btn-accent">Create SIWES account</button>
+        </form>
+        <button type="button" id="registerBackBtn" class="btn btn-secondary">Change account type</button>
+        <div id="registerError" class="message error" hidden></div>
+      </section>
+
+      <section id="stateExisting" class="card" hidden>
+        <div class="panel-head"><div class="eyebrow">Identity found</div><h2>Welcome back</h2></div>
+        <div class="wallet-box"><span class="wallet-dot"></span><span id="existingWallet" class="wallet-address">—</span></div>
+        <div class="existing-box">
+          <div class="label">Registered as</div>
+          <div class="name" id="existingName">—</div>
+          <div class="role-tag" id="existingRole">—</div>
+          <div class="meta" id="existingDetails">—</div>
         </div>
+        <button id="continueBtn" class="btn btn-accent">Continue to dashboard</button>
+        <button id="disconnectExistingBtn" class="btn btn-secondary">Disconnect wallet</button>
+      </section>
 
-      </div>
-
-      <div class="role-arrow">
-        →
-      </div>
-
-    </button>
-
-
-    <!-- SUPERVISOR -->
-
-    <button
-      type="button"
-      class="role-card"
-      data-role="supervisor"
-    >
-
-      <div class="role-icon">
-        👨‍🏫
-      </div>
-
-      <div class="role-info">
-
-        <div class="role-name">
-          Supervisor
-        </div>
-
-        <div class="role-description">
-          Register as an institutional supervisor
-        </div>
-
-      </div>
-
-      <div class="role-arrow">
-        →
-      </div>
-
-    </button>
-
-
-    <!-- ADMIN -->
-
-    <button
-      type="button"
-      class="role-card"
-      data-role="admin"
-    >
-
-      <div class="role-icon">
-        ⚙️
-      </div>
-
-      <div class="role-info">
-
-        <div class="role-name">
-          Administrator
-        </div>
-
-        <div class="role-description">
-          Register as a SIWES coordinator
-        </div>
-
-      </div>
-
-      <div class="role-arrow">
-        →
-      </div>
-
-    </button>
-
-
-  </div>
-
-
-  <div
-    id="roleError"
-    class="message error"
-    hidden
-  ></div>
-
-</section>
-
-
-<!-- =====================================================
-     STAFF PASSWORD
-===================================================== -->
-
-<section
-  id="statePassword"
-  class="card"
-  hidden
->
-
-  <div class="card-header">
-
-    <h2 class="card-title">
-      Authorization
-    </h2>
-
-    <span
-      id="passwordBadge"
-      class="badge warning"
-    >
-      Restricted
-    </span>
-
-  </div>
-
-
-  <div
-    id="passwordRoleBox"
-    class="selected-role"
-  >
-
-    <div
-      id="passwordRoleIcon"
-      class="selected-role-icon"
-    >
-      🔐
+      <div class="foot">SIWES Identity Registry · TON Connect · Supabase</div>
     </div>
-
-    <div class="selected-role-text">
-
-      <strong id="passwordRoleName">
-        Staff Account
-      </strong>
-
-      Authorization required before registration.
-
-    </div>
-
-  </div>
-
-
-  <div class="password-box">
-
-    <strong>
-      Restricted Account
-    </strong>
-
-    Supervisor and Administrator accounts
-    require the authorized SIWES password before
-    they can be created.
-
-  </div>
-
-
-  <div class="field">
-
-    <label for="staffPassword">
-      Authorization Password
-    </label>
-
-    <input
-      type="password"
-      id="staffPassword"
-      placeholder="Enter authorization password"
-      autocomplete="off"
-    >
-
-  </div>
-
-
-  <button
-    type="button"
-    id="verifyPasswordBtn"
-    class="btn"
-  >
-    Verify Password
-  </button>
-
-
-  <button
-    type="button"
-    id="passwordBackBtn"
-    class="btn btn-secondary"
-  >
-    Back
-  </button>
-
-
-  <div
-    id="passwordError"
-    class="message error"
-    hidden
-  ></div>
-
-</section>
-
-
-<!-- =====================================================
-     REGISTRATION
-===================================================== -->
-
-<section
-  id="stateRegister"
-  class="card"
-  hidden
->
-
-  <div class="card-header">
-
-    <h2 class="card-title">
-      Create Identity
-    </h2>
-
-    <span class="badge success">
-      Wallet Connected
-    </span>
-
-  </div>
-
-
-  <!-- SELECTED ROLE -->
-
-  <div class="selected-role">
-
-    <div
-      id="registerRoleIcon"
-      class="selected-role-icon"
-    >
-      🎓
-    </div>
-
-    <div class="selected-role-text">
-
-      <strong id="registerRoleName">
-        Student Account
-      </strong>
-
-      Complete your SIWES profile below.
-
-    </div>
-
-  </div>
-
-
-  <!-- WALLET -->
-
-  <div class="wallet-box">
-
-    <span class="wallet-dot"></span>
-
-    <span
-      id="walletDisplay"
-      class="wallet-address"
-    >
-      —
-    </span>
-
-  </div>
-
-
-  <form id="registerForm">
-
-
-    <!-- FULL NAME -->
-
-    <div class="field">
-
-      <label for="full_name">
-        Full Name
-      </label>
-
-      <input
-        type="text"
-        id="full_name"
-        name="full_name"
-        placeholder="Enter your full name"
-        autocomplete="name"
-        required
-      >
-
-    </div>
-
-
-    <!-- MATRIC / STAFF ID -->
-
-    <div class="field">
-
-      <label id="idLabel" for="matric_number">
-        Matric Number
-      </label>
-
-      <input
-        type="text"
-        id="matric_number"
-        name="matric_number"
-        placeholder=""
-        required
-      >
-
-    </div>
-
-
-    <!-- COURSE -->
-
-    <div
-      id="courseField"
-      class="field"
-    >
-
-      <label for="course">
-        Course
-      </label>
-
-      
-      
-      <input
-  type="text"
-  id="course"
-  name="course"
-  placeholder="e.g. CSC 317"
->
-
-    </div>
-
-
-    <!-- DEPARTMENT -->
-
-    <div class="field">
-
-      <label for="department">
-        Department
-      </label>
-
-      <input
-        type="text"
-        id="department"
-        name="department"
-        placeholder="e.g. computer science"
-        required
-      >
-
-    </div>
-
-
-    <!-- INSTITUTION -->
-
-    <div class="field">
-
-      <label for="institution">
-        Institution
-      </label>
-
-      <input
-        type="text"
-        id="institution"
-        name="institution"
-        placeholder=" "
-        required
-      >
-
-    </div>
-
-
-    <!-- SUBMIT -->
-
-    <button
-      type="submit"
-      id="regBtn"
-      class="btn"
-    >
-
-      Create SIWES Account
-
-    </button>
-
-
-  </form>
-
-
-  <button
-    type="button"
-    id="registerBackBtn"
-    class="btn btn-secondary"
-  >
-    Change Account Type
-  </button>
-
-
-  <div
-    id="registerError"
-    class="message error"
-    hidden
-  ></div>
-
-</section>
-
-
-<!-- =====================================================
-     EXISTING USER
-===================================================== -->
-
-<section
-  id="stateExisting"
-  class="card"
-  hidden
->
-
-  <div class="card-header">
-
-    <h2 class="card-title">
-      Identity Found
-    </h2>
-
-    <span class="badge success">
-      Verified
-    </span>
-
-  </div>
-
-
-  <!-- WALLET -->
-
-  <div class="wallet-box">
-
-    <span class="wallet-dot"></span>
-
-    <span
-      id="existingWallet"
-      class="wallet-address"
-    >
-      —
-    </span>
-
-  </div>
-
-
-  <!-- USER INFORMATION -->
-
-  <div
-    style="
-      margin-bottom:20px;
-      padding:14px;
-      background:#f8fafc;
-      border-radius:10px;
-    "
-  >
-
-    <div
-      style="
-        font-size:13px;
-        color:var(--text-muted);
-        margin-bottom:5px;
-      "
-    >
-      Welcome back
-    </div>
-
-
-    <div
-      id="existingName"
-      style="
-        font-size:18px;
-        font-weight:700;
-      "
-    >
-      —
-    </div>
-
-
-    <div
-      id="existingRole"
-      style="
-        margin-top:5px;
-        font-size:12px;
-        color:var(--text-muted);
-      "
-    >
-      —
-    </div>
-
-
-    <div
-      id="existingDetails"
-      style="
-        margin-top:10px;
-        font-size:12px;
-        color:var(--text-muted);
-        line-height:1.7;
-      "
-    >
-      —
-    </div>
-
-  </div>
-
-
-  <button
-    id="continueBtn"
-    class="btn"
-  >
-    Continue to Dashboard
-  </button>
-
-
-  <button
-    id="disconnectExistingBtn"
-    class="btn btn-secondary"
-  >
-    Disconnect Wallet
-  </button>
-
-</section>
-
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
-<div class="footer">
-
-  SIWES Identity Portal · TON Connect · Supabase
+  </main>
 
 </div>
 
-
-</div>
-
-
-<!-- =====================================================
-     TON CONNECT
-===================================================== -->
-
-<script
-  src="https://unpkg.com/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"
-></script>
-
-
-<!-- =====================================================
-     APPLICATION
-===================================================== -->
-
+<script src="https://unpkg.com/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script>
 <script type="module">
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-import {
-  createClient
-}
-from
-"https://esm.sh/@supabase/supabase-js@2";
+const SUPABASE_URL = "https://dxfvrnjqckeoutlpeupk.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4ZnZybmpxY2tlb3V0bHBldXBrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyODgyODUsImV4cCI6MjEwMzg2NDI4NX0._scP1B2Rzyw4OPy8eCg0thpBzY0IwgweeWjys3dT-As";
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+const MANIFEST_URL = "https://raw.githubusercontent.com/ton-connect/demo-telegram-bot/master/tonconnect-manifest.json";
+const STAFF_PASSWORD = "jibola";
 
-/* ==========================================================
-   SUPABASE
-========================================================== */
+const stateLoading = document.getElementById("stateLoading");
+const stateConnect = document.getElementById("stateConnect");
+const stateRole = document.getElementById("stateRole");
+const statePassword = document.getElementById("statePassword");
+const stateRegister = document.getElementById("stateRegister");
+const stateExisting = document.getElementById("stateExisting");
 
-const SUPABASE_URL =
-  "https://dxfvrnjqckeoutlpeupk.supabase.co";
+const connectError = document.getElementById("connectError");
+const roleError = document.getElementById("roleError");
+const passwordError = document.getElementById("passwordError");
+const registerError = document.getElementById("registerError");
 
+const roleWalletDisplay = document.getElementById("roleWalletDisplay");
+const walletDisplay = document.getElementById("walletDisplay");
 
-const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4ZnZybmpxY2tlb3V0bHBldXBrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyODgyODUsImV4cCI6MjEwMzg2NDI4NX0._scP1B2Rzyw4OPy8eCg0thpBzY0IwgweeWjys3dT-As";
+const staffPassword = document.getElementById("staffPassword");
+const verifyPasswordBtn = document.getElementById("verifyPasswordBtn");
+const passwordBackBtn = document.getElementById("passwordBackBtn");
+const passwordRoleIcon = document.getElementById("passwordRoleIcon");
+const passwordRoleName = document.getElementById("passwordRoleName");
 
+const registerRoleIcon = document.getElementById("registerRoleIcon");
+const registerRoleName = document.getElementById("registerRoleName");
+const registerForm = document.getElementById("registerForm");
+const regBtn = document.getElementById("regBtn");
 
-const supabase =
-  createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-  );
+const idLabel = document.getElementById("idLabel");
+const matricNumber = document.getElementById("matric_number");
+const courseField = document.getElementById("courseField");
+const course = document.getElementById("course");
+const registerBackBtn = document.getElementById("registerBackBtn");
 
-
-/* ==========================================================
-   TON MANIFEST
-========================================================== */
-
-const MANIFEST_URL =
-  "https://raw.githubusercontent.com/ton-connect/demo-telegram-bot/master/tonconnect-manifest.json";
-
-
-/* ==========================================================
-   STAFF AUTHORIZATION PASSWORD
-========================================================== */
-
-const STAFF_PASSWORD =
-  "jibola";
-
-
-/* ==========================================================
-   DOM
-========================================================== */
-
-const stateLoading =
-  document.getElementById("stateLoading");
-
-const stateConnect =
-  document.getElementById("stateConnect");
-
-const stateRole =
-  document.getElementById("stateRole");
-
-const statePassword =
-  document.getElementById("statePassword");
-
-const stateRegister =
-  document.getElementById("stateRegister");
-
-const stateExisting =
-  document.getElementById("stateExisting");
-
-
-const connectError =
-  document.getElementById("connectError");
-
-const roleError =
-  document.getElementById("roleError");
-
-const passwordError =
-  document.getElementById("passwordError");
-
-const registerError =
-  document.getElementById("registerError");
-
-
-const roleWalletDisplay =
-  document.getElementById(
-    "roleWalletDisplay"
-  );
-
-const walletDisplay =
-  document.getElementById(
-    "walletDisplay"
-  );
-
-
-const staffPassword =
-  document.getElementById(
-    "staffPassword"
-  );
-
-const verifyPasswordBtn =
-  document.getElementById(
-    "verifyPasswordBtn"
-  );
-
-const passwordBackBtn =
-  document.getElementById(
-    "passwordBackBtn"
-  );
-
-
-const passwordRoleIcon =
-  document.getElementById(
-    "passwordRoleIcon"
-  );
-
-const passwordRoleName =
-  document.getElementById(
-    "passwordRoleName"
-  );
-
-
-const registerRoleIcon =
-  document.getElementById(
-    "registerRoleIcon"
-  );
-
-const registerRoleName =
-  document.getElementById(
-    "registerRoleName"
-  );
-
-
-const registerForm =
-  document.getElementById(
-    "registerForm"
-  );
-
-const regBtn =
-  document.getElementById(
-    "regBtn"
-  );
-
-
-const idLabel =
-  document.getElementById(
-    "idLabel"
-  );
-
-const matricNumber =
-  document.getElementById(
-    "matric_number"
-  );
-
-const courseField =
-  document.getElementById(
-    "courseField"
-  );
-
-const course =
-  document.getElementById(
-    "course"
-  );
-
-
-const registerBackBtn =
-  document.getElementById(
-    "registerBackBtn"
-  );
-
-
-const existingWallet =
-  document.getElementById(
-    "existingWallet"
-  );
-
-const existingName =
-  document.getElementById(
-    "existingName"
-  );
-
-const existingRole =
-  document.getElementById(
-    "existingRole"
-  );
-
-const existingDetails =
-  document.getElementById(
-    "existingDetails"
-  );
-
-
-const continueBtn =
-  document.getElementById(
-    "continueBtn"
-  );
-
-const disconnectExistingBtn =
-  document.getElementById(
-    "disconnectExistingBtn"
-  );
-
-
-/* ==========================================================
-   STATE
-========================================================== */
+const existingWallet = document.getElementById("existingWallet");
+const existingName = document.getElementById("existingName");
+const existingRole = document.getElementById("existingRole");
+const existingDetails = document.getElementById("existingDetails");
+const continueBtn = document.getElementById("continueBtn");
+const disconnectExistingBtn = document.getElementById("disconnectExistingBtn");
 
 let tonConnectUI = null;
-
 let currentWalletAddress = null;
-
 let currentUser = null;
-
 let selectedRole = null;
 
-
-/* ==========================================================
-   ROLE INFORMATION
-========================================================== */
-
 const ROLE_INFO = {
-
-  student: {
-
-    name:
-      "Student",
-
-    icon:
-      "🎓",
-
-    description:
-      "Student Trainee"
-
-  },
-
-  supervisor: {
-
-    name:
-      "Supervisor",
-
-    icon:
-      "👨‍🏫",
-
-    description:
-      "Institutional Supervisor"
-
-  },
-
-  admin: {
-
-    name:
-      "Administrator",
-
-    icon:
-      "⚙️",
-
-    description:
-      "SIWES Coordinator"
-
-  }
-
+  student:    { name:"Student",              icon:"🎓", staff:false },
+  supervisor: { name:"Supervisor",           icon:"👨‍🏫", staff:true },
+  hod:        { name:"Head of Department",   icon:"🏛️", staff:true },
+  admin:      { name:"Administrator",        icon:"⚙️", staff:true },
 };
 
-
-/* ==========================================================
-   SHOW STATE
-========================================================== */
-
-function showState(state) {
-
-  [
-
-    stateLoading,
-    stateConnect,
-    stateRole,
-    statePassword,
-    stateRegister,
-    stateExisting
-
-  ].forEach(section => {
-
-    section.hidden =
-      section !== state;
-
-  });
-
+function showState(state){
+  [stateLoading, stateConnect, stateRole, statePassword, stateRegister, stateExisting]
+    .forEach(section => { section.hidden = section !== state; });
 }
 
+function showError(el, msg){ el.textContent = msg; el.hidden = false; }
+function clearElementError(el){ el.textContent = ""; el.hidden = true; }
+function clearErrors(){ [connectError, roleError, passwordError, registerError].forEach(clearElementError); }
 
-/* ==========================================================
-   ERROR
-========================================================== */
-
-function showError(
-  element,
-  message
-) {
-
-  element.textContent =
-    message;
-
-  element.hidden =
-    false;
-
+function getWalletAddress(wallet){
+  return wallet && wallet.account && wallet.account.address ? wallet.account.address : null;
 }
 
-
-function clearElementError(element) {
-
-  element.textContent =
-    "";
-
-  element.hidden =
-    true;
-
+function shortWallet(address){
+  if (!address) return "—";
+  if (address.length <= 16) return address;
+  return address.slice(0,8) + "..." + address.slice(-8);
 }
 
+/* Do NOT turn an empty RPC result into a fake user — that caused ROLE NOT FOUND bugs. */
+function normalizeUser(user){
+  if (!user) return null;
+  if (Array.isArray(user)) user = user[0] || null;
+  if (!user) return null;
+  if (typeof user !== "object" || Object.keys(user).length === 0) return null;
+  if (!user.id && !user.wallet_address) return null;
 
-function clearErrors() {
-
-  clearElementError(
-    connectError
-  );
-
-  clearElementError(
-    roleError
-  );
-
-  clearElementError(
-    passwordError
-  );
-
-  clearElementError(
-    registerError
-  );
-
-}
-
-
-/* ==========================================================
-   WALLET ADDRESS
-========================================================== */
-
-function getWalletAddress(wallet) {
-
-  if (!wallet) {
-
+  const role = String(user.role || "").toLowerCase().trim();
+  if (!ROLE_INFO[role]) {
+    console.warn("[SIWES] User returned without a valid role:", user);
     return null;
-
   }
-
-
-  if (
-    wallet.account &&
-    wallet.account.address
-  ) {
-
-    return wallet.account.address;
-
-  }
-
-
-  return null;
-
-}
-
-
-/* ==========================================================
-   SHORT WALLET
-========================================================== */
-
-function shortWallet(address) {
-
-  if (!address) {
-
-    return "—";
-
-  }
-
-
-  if (address.length <= 16) {
-
-    return address;
-
-  }
-
-
-  return (
-    address.slice(0,8) +
-    "..." +
-    address.slice(-8)
-  );
-
-}
-
-
-/* ==========================================================
-   NORMALIZE USER
-========================================================== */
-
-function normalizeUser(user) {
-
-  /*
-    IMPORTANT:
-
-    Do NOT turn an empty RPC result into
-    a fake "student" user.
-
-    This was one of the bugs causing
-    ROLE NOT FOUND / Profile unavailable.
-  */
-
-  if (!user) {
-
-    return null;
-
-  }
-
-
-  if (Array.isArray(user)) {
-
-    user =
-      user[0] ||
-      null;
-
-  }
-
-
-  if (!user) {
-
-    return null;
-
-  }
-
-
-  /*
-    If Supabase returns an empty object,
-    it is NOT a real user.
-  */
-
-  if (
-    typeof user !== "object" ||
-    Object.keys(user).length === 0
-  ) {
-
-    return null;
-
-  }
-
-
-  /*
-    A real account should have at least
-    a wallet address or an ID.
-  */
-
-  if (
-    !user.id &&
-    !user.wallet_address
-  ) {
-
-    return null;
-
-  }
-
-
-  const role =
-    String(
-      user.role || ""
-    )
-    .toLowerCase()
-    .trim();
-
-
-  /*
-    Do not invent a role.
-  */
-
-  if (
-    role !== "student" &&
-    role !== "supervisor" &&
-    role !== "admin"
-  ) {
-
-    console.warn(
-      "[SIWES] User returned without a valid role:",
-      user
-    );
-
-    return null;
-
-  }
-
 
   return {
-
-    id:
-      user.id ||
-      null,
-
-    wallet_address:
-      user.wallet_address ||
-      currentWalletAddress ||
-      null,
-
-    full_name:
-      user.full_name ||
-      "",
-
-    matric_number:
-      user.matric_number ||
-      "",
-
-    course:
-      user.course ||
-      "",
-
-    department:
-      user.department ||
-      "",
-
-    institution:
-      user.institution ||
-      "",
-
-    role:
-      role
-
+    id: user.id || null,
+    wallet_address: user.wallet_address || currentWalletAddress || null,
+    full_name: user.full_name || "",
+    matric_number: user.matric_number || "",
+    course: user.course || "",
+    department: user.department || "",
+    institution: user.institution || "",
+    role,
   };
-
 }
 
-
-/* ==========================================================
-   SAVE SESSION
-========================================================== */
-
-function saveUserSession(user) {
-
-  const normalized =
-    normalizeUser(user);
-
-
-  if (!normalized) {
-
-    console.error(
-      "[SIWES] Cannot save invalid user."
-    );
-
-    return false;
-
-  }
-
-
+function saveUserSession(user){
+  const normalized = normalizeUser(user);
+  if (!normalized) { console.error("[SIWES] Cannot save invalid user."); return false; }
   try {
-
-    localStorage.setItem(
-      "siwes_user",
-      JSON.stringify(
-        normalized
-      )
-    );
-
-
-    localStorage.setItem(
-      "siwes_wallet",
-      normalized.wallet_address || ""
-    );
-
-
+    localStorage.setItem("siwes_user", JSON.stringify(normalized));
+    localStorage.setItem("siwes_wallet", normalized.wallet_address || "");
     return true;
-
-  }
-  catch(error) {
-
-    console.error(
-      "[SIWES] Session save error:",
-      error
-    );
-
+  } catch (error) {
+    console.error("[SIWES] Session save error:", error);
     return false;
-
   }
-
 }
 
-
-/* ==========================================================
-   GET USER BY WALLET
-========================================================== */
-
-async function getUserByWallet(
-  address
-) {
-
-  console.log(
-    "[SIWES] Looking up wallet:",
-    address
-  );
-
-
-  const {
-    data,
-    error
-  } =
-    await supabase.rpc(
-      "get_user_by_wallet",
-      {
-
-        p_wallet_address:
-          address
-
-      }
-    );
-
-
-  console.log(
-    "[SIWES] get_user_by_wallet response:",
-    {
-      data,
-      error
-    }
-  );
-
-
-  if (error) {
-
-    throw error;
-
-  }
-
-
-  /*
-    normalizeUser returns NULL when
-    the wallet isn't actually registered.
-  */
-
-  return normalizeUser(
-    data
-  );
-
+async function getUserByWallet(address){
+  console.log("[SIWES] Looking up wallet:", address);
+  const { data, error } = await supabase.rpc("get_user_by_wallet", { p_wallet_address: address });
+  console.log("[SIWES] get_user_by_wallet response:", { data, error });
+  if (error) throw error;
+  return normalizeUser(data);
 }
 
-
-/* ==========================================================
-   REGISTER USER
-========================================================== */
-
-async function registerUser(
-  details
-) {
-
-  console.log(
-    "[SIWES] Registering:",
-    {
-      wallet:
-        currentWalletAddress,
-
-      role:
-        selectedRole,
-
-      details:
-        details
-    }
-  );
-
-
-  const {
-    data,
-    error
-  } =
-    await supabase.rpc(
-      "register_wallet_user",
-      {
-
-        p_wallet_address:
-          currentWalletAddress,
-
-        p_full_name:
-          details.full_name,
-
-        p_matric_number:
-          details.matric_number,
-
-        p_course:
-          details.course || null,
-
-        p_department:
-          details.department,
-
-        p_role:
-          selectedRole,
-
-        p_institution:
-          details.institution || null
-
-      }
-    );
-
-
-  console.log(
-    "[SIWES] register_wallet_user response:",
-    {
-      data,
-      error
-    }
-  );
-
-
-  if (error) {
-
-    throw error;
-
-  }
-
-
-  return normalizeUser(
-    data
-  );
-
-}
-
-
-/* ==========================================================
-   SELECT ROLE
-========================================================== */
-
-function selectRole(role) {
-
-  clearErrors();
-
-
-  if (
-    !ROLE_INFO[role]
-  ) {
-
-    return;
-
-  }
-
-
-  selectedRole =
-    role;
-
-
-  console.log(
-    "[SIWES] Selected role:",
-    role
-  );
-
-
-  const info =
-    ROLE_INFO[role];
-
-
-  /*
-    STUDENT
-
-    Goes directly to registration.
-  */
-
-  if (
-    role === "student"
-  ) {
-
-    prepareRegistration(
-      "student"
-    );
-
-    showState(
-      stateRegister
-    );
-
-    return;
-
-  }
-
-
-  /*
-    SUPERVISOR / ADMIN
-
-    Must enter authorization password first.
-  */
-
-  passwordRoleIcon.textContent =
-    info.icon;
-
-  passwordRoleName.textContent =
-    info.name +
-    " Account";
-
-
-  staffPassword.value =
-    "";
-
-
-  showState(
-    statePassword
-  );
-
-
-  setTimeout(
-    () => {
-
-      staffPassword.focus();
-
-    },
-    100
-  );
-
-}
-
-
-/* ==========================================================
-   PREPARE REGISTRATION
-========================================================== */
-
-function prepareRegistration(
-  role
-) {
-
-  selectedRole =
-    role;
-
-
-  const info =
-    ROLE_INFO[role];
-
-
-  registerRoleIcon.textContent =
-    info.icon;
-
-
-  registerRoleName.textContent =
-    info.name +
-    " Account";
-
-
-  walletDisplay.textContent =
-    shortWallet(
-      currentWalletAddress
-    );
-
-
-  walletDisplay.title =
-    currentWalletAddress || "";
-
-
-  /*
-    STUDENT FIELDS
-  */
-
-  if (
-    role === "student"
-  ) {
-
-    idLabel.textContent =
-      "Matric Number";
-
-    matricNumber.placeholder =
-      "";
-
-    courseField.hidden =
-      false;
-
-    course.required =
-      true;
-
-  }
-
-
-  /*
-    SUPERVISOR
-  */
-
-  else if (
-    role === "supervisor"
-  ) {
-
-    idLabel.textContent =
-      "Staff ID";
-
-    matricNumber.placeholder =
-      "Enter supervisor staff ID";
-
-    courseField.hidden =
-      true;
-
-    course.required =
-      false;
-
-    course.value =
-      "";
-
-  }
-
-
-  /*
-    ADMIN
-  */
-
-  else if (
-    role === "admin"
-  ) {
-
-    idLabel.textContent =
-      "Staff ID";
-
-    matricNumber.placeholder =
-      "Enter administrator staff ID";
-
-    courseField.hidden =
-      true;
-
-    course.required =
-      false;
-
-    course.value =
-      "";
-
-  }
-
-}
-
-
-/* ==========================================================
-   VERIFY STAFF PASSWORD
-========================================================== */
-
-verifyPasswordBtn.addEventListener(
-  "click",
-  () => {
-
-    clearElementError(
-      passwordError
-    );
-
-
-    const password =
-      staffPassword.value;
-
-
-    if (!password) {
-
-      showError(
-        passwordError,
-        "Please enter the authorization password."
-      );
-
-      return;
-
-    }
-
-
-    if (
-      password !==
-      STAFF_PASSWORD
-    ) {
-
-      showError(
-        passwordError,
-        "Incorrect authorization password."
-      );
-
-      staffPassword.focus();
-
-      return;
-
-    }
-
-
-    console.log(
-      "[SIWES] Staff authorization successful:",
-      selectedRole
-    );
-
-
-    prepareRegistration(
-      selectedRole
-    );
-
-
-    showState(
-      stateRegister
-    );
-
-  }
-);
-
-
-/* ==========================================================
-   PASSWORD ENTER KEY
-========================================================== */
-
-staffPassword.addEventListener(
-  "keydown",
-  event => {
-
-    if (
-      event.key ===
-      "Enter"
-    ) {
-
-      event.preventDefault();
-
-      verifyPasswordBtn.click();
-
-    }
-
-  }
-);
-
-
-/* ==========================================================
-   PASSWORD BACK
-========================================================== */
-
-passwordBackBtn.addEventListener(
-  "click",
-  () => {
-
-    clearErrors();
-
-    staffPassword.value =
-      "";
-
-    showState(
-      stateRole
-    );
-
-  }
-);
-
-
-/* ==========================================================
-   ROLE BUTTONS
-========================================================== */
-
-document
-  .querySelectorAll(
-    ".role-card"
-  )
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        const role =
-          button.dataset.role;
-
-        selectRole(
-          role
-        );
-
-      }
-    );
-
+async function registerUser(details){
+  console.log("[SIWES] Registering:", { wallet: currentWalletAddress, role: selectedRole, details });
+  const { data, error } = await supabase.rpc("register_wallet_user", {
+    p_wallet_address: currentWalletAddress,
+    p_full_name: details.full_name,
+    p_matric_number: details.matric_number,
+    p_course: details.course || null,
+    p_department: details.department,
+    p_role: selectedRole,
+    p_institution: details.institution || null,
   });
+  console.log("[SIWES] register_wallet_user response:", { data, error });
+  if (error) throw error;
+  return normalizeUser(data);
+}
 
+function selectRole(role){
+  clearErrors();
+  const info = ROLE_INFO[role];
+  if (!info) return;
+  selectedRole = role;
+  console.log("[SIWES] Selected role:", role);
 
-/* ==========================================================
-   SHOW EXISTING USER
-========================================================== */
+  if (!info.staff) {
+    prepareRegistration(role);
+    showState(stateRegister);
+    return;
+  }
 
-function renderExistingUser(
-  user
-) {
+  passwordRoleIcon.textContent = info.icon;
+  passwordRoleName.textContent = info.name + " Account";
+  staffPassword.value = "";
+  showState(statePassword);
+  setTimeout(() => staffPassword.focus(), 100);
+}
 
-  const normalized =
-    normalizeUser(
-      user
-    );
+function prepareRegistration(role){
+  selectedRole = role;
+  const info = ROLE_INFO[role];
 
+  registerRoleIcon.textContent = info.icon;
+  registerRoleName.textContent = info.name + " Account";
+  walletDisplay.textContent = shortWallet(currentWalletAddress);
+  walletDisplay.title = currentWalletAddress || "";
 
-  /*
-    If the data isn't a genuine
-    valid user, DO NOT show Identity Found.
+  if (role === "student") {
+    idLabel.textContent = "Matric number";
+    matricNumber.placeholder = "";
+    courseField.hidden = false;
+    course.required = true;
+  } else {
+    idLabel.textContent = "Staff ID";
+    matricNumber.placeholder = role === "hod" ? "Enter HOD staff ID" : "Enter staff ID";
+    courseField.hidden = true;
+    course.required = false;
+    course.value = "";
+  }
+}
 
-    Instead send the wallet owner
-    to account-type selection.
-  */
+verifyPasswordBtn.addEventListener("click", () => {
+  clearElementError(passwordError);
+  const password = staffPassword.value;
+
+  if (!password) { showError(passwordError, "Please enter the authorization password."); return; }
+  if (password !== STAFF_PASSWORD) {
+    showError(passwordError, "Incorrect authorization password.");
+    staffPassword.focus();
+    return;
+  }
+
+  console.log("[SIWES] Staff authorization successful:", selectedRole);
+  prepareRegistration(selectedRole);
+  showState(stateRegister);
+});
+
+staffPassword.addEventListener("keydown", event => {
+  if (event.key === "Enter") { event.preventDefault(); verifyPasswordBtn.click(); }
+});
+
+passwordBackBtn.addEventListener("click", () => {
+  clearErrors();
+  staffPassword.value = "";
+  showState(stateRole);
+});
+
+document.querySelectorAll(".role-row").forEach(button => {
+  button.addEventListener("click", () => selectRole(button.dataset.role));
+});
+
+function renderExistingUser(user){
+  const normalized = normalizeUser(user);
 
   if (!normalized) {
-
-    console.warn(
-      "[SIWES] Invalid existing user data."
-    );
-
-
-    currentUser =
-      null;
-
-
-    roleWalletDisplay.textContent =
-      shortWallet(
-        currentWalletAddress
-      );
-
-
-    showState(
-      stateRole
-    );
-
-
+    console.warn("[SIWES] Invalid existing user data.");
+    currentUser = null;
+    roleWalletDisplay.textContent = shortWallet(currentWalletAddress);
+    showState(stateRole);
     return;
-
   }
 
+  currentUser = normalized;
+  saveUserSession(normalized);
 
-  currentUser =
-    normalized;
-
-
-  saveUserSession(
-    normalized
-  );
-
-
-  existingWallet.textContent =
-    shortWallet(
-      normalized.wallet_address
-    );
-
-
-  existingWallet.title =
-    normalized.wallet_address || "";
-
-
-  existingName.textContent =
-    normalized.full_name ||
-    "Profile name unavailable";
-
-
-  existingRole.textContent =
-    (
-      ROLE_INFO[
-        normalized.role
-      ]?.name ||
-      normalized.role
-    ).toUpperCase();
-
+  existingWallet.textContent = shortWallet(normalized.wallet_address);
+  existingWallet.title = normalized.wallet_address || "";
+  existingName.textContent = normalized.full_name || "Profile name unavailable";
+  existingRole.textContent = (ROLE_INFO[normalized.role]?.name || normalized.role).toUpperCase();
 
   existingDetails.innerHTML =
+    "<strong>" + (normalized.role === "student" ? "Matric Number" : "Staff ID") + ":</strong> " +
+    escapeHtml(normalized.matric_number || "—") + "<br>" +
+    (normalized.role === "student"
+      ? "<strong>Course:</strong> " + escapeHtml(normalized.course || "—") + "<br>"
+      : "") +
+    "<strong>Department:</strong> " + escapeHtml(normalized.department || "—") + "<br>" +
+    "<strong>Institution:</strong> " + escapeHtml(normalized.institution || "—");
 
-    "<strong>" +
-    (
-      normalized.role === "student"
-        ? "Matric Number"
-        : "Staff ID"
-    ) +
-    ":</strong> " +
-
-    escapeHtml(
-      normalized.matric_number ||
-      "—"
-    ) +
-
-    "<br>" +
-
-    (
-      normalized.role === "student"
-        ? (
-            "<strong>Course:</strong> " +
-            escapeHtml(
-              normalized.course ||
-              "—"
-            ) +
-            "<br>"
-          )
-        : ""
-    ) +
-
-    "<strong>Department:</strong> " +
-
-    escapeHtml(
-      normalized.department ||
-      "—"
-    ) +
-
-    "<br>" +
-
-    "<strong>Institution:</strong> " +
-
-    escapeHtml(
-      normalized.institution ||
-      "—"
-    );
-
-
-  showState(
-    stateExisting
-  );
-
+  showState(stateExisting);
 }
 
-
-/* ==========================================================
-   HANDLE WALLET
-========================================================== */
-
-async function handleWallet(
-  wallet
-) {
-
+async function handleWallet(wallet){
   clearErrors();
+  console.log("[SIWES] Wallet connected:", wallet);
 
-
-  console.log(
-    "[SIWES] Wallet connected:",
-    wallet
-  );
-
-
-  const address =
-    getWalletAddress(
-      wallet
-    );
-
-
+  const address = getWalletAddress(wallet);
   if (!address) {
-
-    currentWalletAddress =
-      null;
-
-    showState(
-      stateConnect
-    );
-
-
-    showError(
-      connectError,
-      "Could not read the connected wallet address."
-    );
-
-
+    currentWalletAddress = null;
+    showState(stateConnect);
+    showError(connectError, "Could not read the connected wallet address.");
     return;
-
   }
 
-
-  currentWalletAddress =
-    address;
-
-
-  roleWalletDisplay.textContent =
-    shortWallet(
-      address
-    );
-
-
-  roleWalletDisplay.title =
-    address;
-
+  currentWalletAddress = address;
+  roleWalletDisplay.textContent = shortWallet(address);
+  roleWalletDisplay.title = address;
 
   try {
-
-    const user =
-      await getUserByWallet(
-        address
-      );
-
-
-    /*
-      ONLY a valid normalized user
-      counts as an existing account.
-    */
+    const user = await getUserByWallet(address);
 
     if (user) {
-
-      console.log(
-        "[SIWES] REAL EXISTING USER:",
-        user
-      );
-
-
-      renderExistingUser(
-        user
-      );
-
-
+      console.log("[SIWES] REAL EXISTING USER:", user);
+      renderExistingUser(user);
       return;
-
     }
 
+    console.log("[SIWES] No existing account. Showing role selection.");
+    currentUser = null;
+    selectedRole = null;
+    showState(stateRole);
 
-    /*
-      NEW WALLET
-
-      THIS is the important part.
-
-      Do NOT create a fake student.
-      Do NOT show Identity Found.
-      Show role selection.
-    */
-
-    console.log(
-      "[SIWES] No existing account. Showing role selection."
-    );
-
-
-    currentUser =
-      null;
-
-
-    selectedRole =
-      null;
-
-
-    showState(
-      stateRole
-    );
-
+  } catch (error) {
+    console.error("[SIWES] Wallet lookup failed:", error);
+    showState(stateConnect);
+    showError(connectError, "Could not check your SIWES account: " + (error.message || "Database error"));
   }
-  catch(error) {
-
-    console.error(
-      "[SIWES] Wallet lookup failed:",
-      error
-    );
-
-
-    showState(
-      stateConnect
-    );
-
-
-    showError(
-      connectError,
-      "Could not check your SIWES account: " +
-      (
-        error.message ||
-        "Database error"
-      )
-    );
-
-  }
-
 }
 
-
-/* ==========================================================
-   TON CONNECT INITIALIZATION
-========================================================== */
-
-async function initTonConnect() {
-
-  console.log(
-    "[SIWES] Initializing TON Connect..."
-  );
-
-
-  showState(
-    stateLoading
-  );
-
+async function initTonConnect(){
+  console.log("[SIWES] Initializing TON Connect...");
+  showState(stateLoading);
 
   try {
+    const UIClass = window.TON_CONNECT_UI && window.TON_CONNECT_UI.TonConnectUI;
+    if (!UIClass) throw new Error("TON Connect UI library failed to load.");
 
-    const UIClass =
-      window.TON_CONNECT_UI &&
-      window.TON_CONNECT_UI.TonConnectUI;
+    tonConnectUI = new UIClass({ manifestUrl: MANIFEST_URL, buttonRootId: "ton-connect-button" });
+    console.log("[SIWES] TON Connect initialized.");
 
+    tonConnectUI.onStatusChange(async wallet => {
+      console.log("[SIWES] Wallet status changed:", wallet);
 
-    if (!UIClass) {
-
-      throw new Error(
-        "TON Connect UI library failed to load."
-      );
-
-    }
-
-
-    tonConnectUI =
-      new UIClass({
-
-        manifestUrl:
-          MANIFEST_URL,
-
-        buttonRootId:
-          "ton-connect-button"
-
-      });
-
-
-    console.log(
-      "[SIWES] TON Connect initialized."
-    );
-
-
-    tonConnectUI.onStatusChange(
-      async wallet => {
-
-        console.log(
-          "[SIWES] Wallet status changed:",
-          wallet
-        );
-
-
-        if (wallet) {
-
-          await handleWallet(
-            wallet
-          );
-
-        }
-        else {
-
-          currentWalletAddress =
-            null;
-
-          currentUser =
-            null;
-
-          selectedRole =
-            null;
-
-
-          localStorage.removeItem(
-            "siwes_user"
-          );
-
-          localStorage.removeItem(
-            "siwes_wallet"
-          );
-
-
-          showState(
-            stateConnect
-          );
-
-        }
-
+      if (wallet) {
+        await handleWallet(wallet);
+      } else {
+        currentWalletAddress = null;
+        currentUser = null;
+        selectedRole = null;
+        localStorage.removeItem("siwes_user");
+        localStorage.removeItem("siwes_wallet");
+        showState(stateConnect);
       }
-    );
+    });
 
-
-    /*
-      Restore wallet if TON Connect
-      already has one.
-    */
-
-    if (
-      tonConnectUI.wallet
-    ) {
-
-      console.log(
-        "[SIWES] Restored wallet found."
-      );
-
-
-      await handleWallet(
-        tonConnectUI.wallet
-      );
-
-    }
-    else {
-
-      showState(
-        stateConnect
-      );
-
+    if (tonConnectUI.wallet) {
+      console.log("[SIWES] Restored wallet found.");
+      await handleWallet(tonConnectUI.wallet);
+    } else {
+      showState(stateConnect);
     }
 
+  } catch (error) {
+    console.error("[SIWES] TON initialization error:", error);
+    showState(stateConnect);
+    showError(connectError, "TON Connect could not initialize: " + (error.message || "Unknown error"));
   }
-  catch(error) {
-
-    console.error(
-      "[SIWES] TON initialization error:",
-      error
-    );
-
-
-    showState(
-      stateConnect
-    );
-
-
-    showError(
-      connectError,
-      "TON Connect could not initialize: " +
-      (
-        error.message ||
-        "Unknown error"
-      )
-    );
-
-  }
-
 }
 
+registerForm.addEventListener("submit", async event => {
+  event.preventDefault();
+  clearElementError(registerError);
 
-/* ==========================================================
-   REGISTRATION SUBMIT
-========================================================== */
+  if (!currentWalletAddress) { showError(registerError, "No wallet is connected."); return; }
+  if (!selectedRole) { showError(registerError, "Please select an account type."); return; }
 
-registerForm.addEventListener(
-  "submit",
-  async event => {
+  const formData = new FormData(registerForm);
+  const details = Object.fromEntries(formData.entries());
 
-    event.preventDefault();
+  Object.keys(details).forEach(key => {
+    if (typeof details[key] === "string") details[key] = details[key].trim();
+  });
 
-    clearElementError(
-      registerError
-    );
-
-
-    if (
-      !currentWalletAddress
-    ) {
-
-      showError(
-        registerError,
-        "No wallet is connected."
-      );
-
-      return;
-
-    }
-
-
-    if (
-      !selectedRole
-    ) {
-
-      showError(
-        registerError,
-        "Please select an account type."
-      );
-
-      return;
-
-    }
-
-
-    const formData =
-      new FormData(
-        registerForm
-      );
-
-
-    const details =
-      Object.fromEntries(
-        formData.entries()
-      );
-
-
-    /*
-      Trim fields.
-    */
-
-    Object.keys(
-      details
-    ).forEach(
-      key => {
-
-        if (
-          typeof details[key] ===
-          "string"
-        ) {
-
-          details[key] =
-            details[key].trim();
-
-        }
-
-      }
-    );
-
-
-    /*
-      Course is only required for students.
-    */
-
-    if (
-      selectedRole ===
-      "student"
-    ) {
-
-      if (
-        !details.course
-      ) {
-
-        showError(
-          registerError,
-          "Please enter your course."
-        );
-
-        return;
-
-      }
-
-    }
-
-
-    /*
-      Staff password is not stored.
-      It is only checked before reaching
-      this registration screen.
-    */
-
-    regBtn.disabled =
-      true;
-
-
-    regBtn.innerHTML =
-      '<span class="spinner"></span> Creating account...';
-
-
-    try {
-
-      console.log(
-        "[SIWES] Creating account:",
-        {
-          wallet:
-            currentWalletAddress,
-
-          role:
-            selectedRole,
-
-          details:
-            details
-        }
-      );
-
-
-      const user =
-        await registerUser(
-          details
-        );
-
-
-      if (!user) {
-
-        throw new Error(
-          "The account was created, but Supabase did not return a valid user profile. Check your register_wallet_user RPC."
-        );
-
-      }
-
-
-      const saved =
-        saveUserSession(
-          user
-        );
-
-
-      if (!saved) {
-
-        throw new Error(
-          "Account created, but the SIWES session could not be saved."
-        );
-
-      }
-
-
-      currentUser =
-        user;
-
-
-      console.log(
-        "[SIWES] Registration successful:",
-        user
-      );
-
-
-      redirectByRole(
-        user.role
-      );
-
-    }
-    catch(error) {
-
-      console.error(
-        "[SIWES] Registration error:",
-        error
-      );
-
-
-      let message =
-        error.message ||
-        "Registration failed.";
-
-
-      if (
-        error.code ===
-        "23505"
-      ) {
-
-        message =
-          "This wallet or ID is already registered.";
-
-      }
-
-
-      showError(
-        registerError,
-        message
-      );
-
-    }
-    finally {
-
-      regBtn.disabled =
-        false;
-
-      regBtn.textContent =
-        "Create SIWES Account";
-
-    }
-
-  }
-);
-
-
-/* ==========================================================
-   REDIRECT BY ROLE
-========================================================== */
-
-function redirectByRole(
-  role
-) {
-
-  role =
-    String(
-      role || ""
-    )
-    .toLowerCase()
-    .trim();
-
-
-  console.log(
-    "[SIWES] Redirecting role:",
-    role
-  );
-
-
-  if (
-    role ===
-    "student"
-  ) {
-
-    window.location.href =
-      "student.html";
-
+  if (selectedRole === "student" && !details.course) {
+    showError(registerError, "Please enter your course.");
     return;
-
   }
 
+  regBtn.disabled = true;
+  regBtn.innerHTML = '<span class="spinner"></span> Creating account...';
 
-  if (
-    role ===
-    "supervisor"
-  ) {
+  try {
+    console.log("[SIWES] Creating account:", { wallet: currentWalletAddress, role: selectedRole, details });
+    const user = await registerUser(details);
 
-    window.location.href =
-      "supervisor.html";
+    if (!user) throw new Error("The account was created, but Supabase did not return a valid user profile. Check your register_wallet_user RPC.");
 
-    return;
+    const saved = saveUserSession(user);
+    if (!saved) throw new Error("Account created, but the SIWES session could not be saved.");
 
+    currentUser = user;
+    console.log("[SIWES] Registration successful:", user);
+    redirectByRole(user.role);
+
+  } catch (error) {
+    console.error("[SIWES] Registration error:", error);
+    let msg = error.message || "Registration failed.";
+    if (error.code === "23505") msg = "This wallet or ID is already registered.";
+    showError(registerError, msg);
+
+  } finally {
+    regBtn.disabled = false;
+    regBtn.textContent = "Create SIWES account";
   }
+});
 
+function redirectByRole(role){
+  role = String(role || "").toLowerCase().trim();
+  console.log("[SIWES] Redirecting role:", role);
 
-  if (
-    role ===
-    "admin"
-  ) {
+  const pages = { student:"student.html", supervisor:"supervisor.html", hod:"hod.html", admin:"admin.html" };
+  if (pages[role]) { window.location.href = pages[role]; return; }
 
-    window.location.href =
-      "admin.html";
-
-    return;
-
-  }
-
-
-  console.error(
-    "[SIWES] Invalid role:",
-    role
-  );
-
-
-  showError(
-    registerError,
-    "Your account has an invalid system role."
-  );
-
+  console.error("[SIWES] Invalid role:", role);
+  showError(registerError, "Your account has an invalid system role.");
 }
 
+registerBackBtn.addEventListener("click", () => {
+  clearErrors();
+  registerForm.reset();
+  showState(stateRole);
+});
 
-/* ==========================================================
-   CHANGE ACCOUNT TYPE
-========================================================== */
+continueBtn.addEventListener("click", () => {
+  if (!currentUser) { showState(stateRole); return; }
+  saveUserSession(currentUser);
+  redirectByRole(currentUser.role);
+});
 
-registerBackBtn.addEventListener(
-  "click",
-  () => {
+disconnectExistingBtn.addEventListener("click", async () => {
+  try { if (tonConnectUI) await tonConnectUI.disconnect(); }
+  catch (error) { console.warn("[SIWES] Disconnect error:", error); }
 
-    clearErrors();
+  currentWalletAddress = null;
+  currentUser = null;
+  selectedRole = null;
+  localStorage.removeItem("siwes_user");
+  localStorage.removeItem("siwes_wallet");
+  showState(stateConnect);
+});
 
-    registerForm.reset();
-
-    showState(
-      stateRole
-    );
-
-  }
-);
-
-
-/* ==========================================================
-   CONTINUE EXISTING USER
-========================================================== */
-
-continueBtn.addEventListener(
-  "click",
-  () => {
-
-    if (
-      !currentUser
-    ) {
-
-      showState(
-        stateRole
-      );
-
-      return;
-
-    }
-
-
-    saveUserSession(
-      currentUser
-    );
-
-
-    redirectByRole(
-      currentUser.role
-    );
-
-  }
-);
-
-
-/* ==========================================================
-   DISCONNECT EXISTING USER
-========================================================== */
-
-disconnectExistingBtn.addEventListener(
-  "click",
-  async () => {
-
-    try {
-
-      if (
-        tonConnectUI
-      ) {
-
-        await tonConnectUI.disconnect();
-
-      }
-
-    }
-    catch(error) {
-
-      console.warn(
-        "[SIWES] Disconnect error:",
-        error
-      );
-
-    }
-
-
-    currentWalletAddress =
-      null;
-
-    currentUser =
-      null;
-
-    selectedRole =
-      null;
-
-
-    localStorage.removeItem(
-      "siwes_user"
-    );
-
-    localStorage.removeItem(
-      "siwes_wallet"
-    );
-
-
-    showState(
-      stateConnect
-    );
-
-  }
-);
-
-
-/* ==========================================================
-   HTML ESCAPE
-========================================================== */
-
-function escapeHtml(
-  value
-) {
-
-  return String(
-    value ?? ""
-  )
-
-  .replace(
-    /&/g,
-    "&amp;"
-  )
-
-  .replace(
-    /</g,
-    "&lt;"
-  )
-
-  .replace(
-    />/g,
-    "&gt;"
-  )
-
-  .replace(
-    /"/g,
-    "&quot;"
-  )
-
-  .replace(
-    /'/g,
-    "&#039;"
-  );
-
+function escapeHtml(value){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 }
 
-
-/* ==========================================================
-   START
-========================================================== */
-
-if (
-  document.readyState ===
-  "loading"
-) {
-
-  document.addEventListener(
-    "DOMContentLoaded",
-    initTonConnect
-  );
-
-}
-else {
-
-  initTonConnect();
-
-}
-
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initTonConnect);
+else initTonConnect();
 </script>
-
 </body>
 </html>

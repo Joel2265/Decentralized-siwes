@@ -1,2301 +1,411 @@
 <!doctype html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SIWES — Supervisor Dashboard</title><link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIWES Registry — Supervisor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><style>
-
-:root {
-  --bg: #f8fafc;
-  --surface: #ffffff;
-  --border: #e2e8f0;
-  --text: #0f172a;
-  --muted: #64748b;
-
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --primary-light: #eff6ff;
-
-  --success: #16a34a;
-  --success-bg: #f0fdf4;
-
-  --warning: #d97706;
-  --warning-bg: #fffbeb;
-
-  --danger: #dc2626;
-  --danger-bg: #fef2f2;
-
-  --radius: 14px;
-
-  --shadow:
-    0 4px 12px rgba(15,23,42,.07);
-
-  --font:
-    "Plus Jakarta Sans",
-    sans-serif;
-
-  --mono:
-    "JetBrains Mono",
-    monospace;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font);
-  min-height: 100vh;
-}
-
-
-/* ============================================================
-   HEADER
-============================================================ */
-
-.topbar {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 20px;
-
-  position: sticky;
-  top: 0;
-  z-index: 20;
-}
-
-.topbar-inner {
-  max-width: 1100px;
-  margin: auto;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 15px;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo {
-  width: 40px;
-  height: 40px;
-
-  border-radius: 11px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #2563eb,
-      #1e40af
-    );
-
-  color: white;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-weight: 700;
-}
-
-.brand-text strong {
-  display: block;
-  font-size: 15px;
-}
-
-.brand-text span {
-  display: block;
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.wallet {
-  font-family: var(--mono);
-  font-size: 11px;
-
-  background: #f1f5f9;
-
-  padding: 7px 9px;
-
-  border-radius: 7px;
-}
-
-
-/* ============================================================
-   MAIN
-============================================================ */
-
-.container {
-  width: 100%;
-  max-width: 1100px;
-
-  margin: auto;
-
-  padding:
-    28px
-    18px
-    50px;
-}
-
-
-/* ============================================================
-   WELCOME
-============================================================ */
-
-.welcome {
-  margin-bottom: 24px;
-}
-
-.welcome h1 {
-  margin: 0 0 6px;
-
-  font-size: 25px;
-
-  letter-spacing: -.03em;
-}
-
-.welcome p {
-  margin: 0;
-
-  color: var(--muted);
-
-  font-size: 14px;
-}
-
-
-/* ============================================================
-   CARDS
-============================================================ */
-
-.card {
-  background: var(--surface);
-
-  border: 1px solid var(--border);
-
-  border-radius: var(--radius);
-
-  box-shadow: var(--shadow);
-}
-
-.card-head {
-  padding: 18px 20px;
-
-  border-bottom:
-    1px solid var(--border);
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  gap: 12px;
-}
-
-.card-head h2 {
-  font-size: 15px;
-
-  margin: 0;
-}
-
-.card-body {
-  padding: 20px;
-}
-
-
-/* ============================================================
-   STATS
-============================================================ */
-
-.stats {
-  display: grid;
-
-  grid-template-columns:
-    repeat(4, 1fr);
-
-  gap: 14px;
-
-  margin-bottom: 22px;
-}
-
-.stat {
-  background: var(--surface);
-
-  border:
-    1px solid var(--border);
-
-  border-radius: var(--radius);
-
-  padding: 18px;
-}
-
-.stat-label {
-  font-size: 11px;
-
-  color: var(--muted);
-
-  text-transform: uppercase;
-
-  letter-spacing: .06em;
-
-  font-weight: 700;
-}
-
-.stat-value {
-  font-size: 25px;
-
-  font-weight: 700;
-
-  margin-top: 8px;
-}
-
-
-/* ============================================================
-   PROFILE
-============================================================ */
-
-.profile-grid {
-  display: grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap: 10px;
-}
-
-.profile-item {
-  background: var(--bg);
-
-  padding: 12px;
-
-  border-radius: 9px;
-}
-
-.profile-item small {
-  display: block;
-
-  color: var(--muted);
-
-  font-size: 11px;
-
-  margin-bottom: 4px;
-}
-
-.profile-item strong {
-  font-size: 13px;
-}
-
-
-/* ============================================================
-   STATUS
-============================================================ */
-
-.status {
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 6px;
-
-  border-radius: 20px;
-
-  padding: 5px 9px;
-
-  font-size: 11px;
-
-  font-weight: 600;
-}
-
-.status::before {
-  content: "";
-
-  width: 6px;
-  height: 6px;
-
-  border-radius: 50%;
-}
-
-.status-pending {
-  background: var(--warning-bg);
-  color: var(--warning);
-}
-
-.status-pending::before {
-  background: var(--warning);
-}
-
-.status-approved {
-  background: var(--success-bg);
-  color: var(--success);
-}
-
-.status-approved::before {
-  background: var(--success);
-}
-
-.status-rejected {
-  background: var(--danger-bg);
-  color: var(--danger);
-}
-
-.status-rejected::before {
-  background: var(--danger);
-}
-
-
-/* ============================================================
-   FILTERS
-============================================================ */
-
-.filters {
-  display: flex;
-
-  gap: 8px;
-
-  flex-wrap: wrap;
-}
-
-.filter-btn {
-  border:
-    1px solid var(--border);
-
-  background: white;
-
-  color: var(--muted);
-
-  border-radius: 8px;
-
-  padding: 8px 12px;
-
-  font-family: var(--font);
-
-  font-size: 12px;
-
-  font-weight: 600;
-
-  cursor: pointer;
-}
-
-.filter-btn:hover {
-  background: var(--bg);
-}
-
-.filter-btn.active {
-  background: var(--primary-light);
-
-  border-color:
-    #bfdbfe;
-
-  color: var(--primary);
-}
-
-
-/* ============================================================
-   SUBMISSIONS
-============================================================ */
-
-.submission {
-  border:
-    1px solid var(--border);
-
-  border-radius: 11px;
-
-  padding: 16px;
-
-  margin-bottom: 12px;
-
-  background: white;
-}
-
-.submission:last-child {
-  margin-bottom: 0;
-}
-
-.submission-top {
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: flex-start;
-
-  gap: 12px;
-}
-
-.submission-title {
-  font-size: 14px;
-
-  font-weight: 700;
-
-  margin-bottom: 5px;
-}
-
-.submission-date {
-  color: var(--muted);
-
-  font-size: 11px;
-}
-
-.submission-content {
-  margin-top: 12px;
-
-  color: var(--muted);
-
-  font-size: 13px;
-
-  line-height: 1.6;
-
-  white-space: pre-wrap;
-}
-
-.student-info {
-  margin-top: 14px;
-
-  padding: 12px;
-
-  background: var(--bg);
-
-  border-radius: 9px;
-}
-
-.student-info-grid {
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, 1fr);
-
-  gap: 10px;
-}
-
-.info-item small {
-  display: block;
-
-  color: var(--muted);
-
-  font-size: 10px;
-
-  margin-bottom: 3px;
-}
-
-.info-item strong {
-  font-size: 12px;
-}
-
-
-/* ============================================================
-   ACTIONS
-============================================================ */
-
-.submission-actions {
-  display: flex;
-
-  gap: 8px;
-
-  margin-top: 15px;
-
-  padding-top: 14px;
-
-  border-top:
-    1px solid var(--border);
-}
-
-.btn {
-  border: 0;
-
-  border-radius: 9px;
-
-  padding: 10px 15px;
-
-  font-family: var(--font);
-
-  font-size: 12px;
-
-  font-weight: 600;
-
-  cursor: pointer;
-}
-
-.btn-primary {
-  background: var(--primary);
-
-  color: white;
-}
-
-.btn-primary:hover {
-  background: var(--primary-hover);
-}
-
-.btn-success {
-  background: var(--success-bg);
-
-  color: var(--success);
-
-  border:
-    1px solid #bbf7d0;
-}
-
-.btn-danger {
-  background: var(--danger-bg);
-
-  color: var(--danger);
-
-  border:
-    1px solid #fecaca;
-}
-
-.btn-full {
-  width: 100%;
-}
-
-.btn:disabled {
-  opacity: .55;
-
-  cursor: not-allowed;
-}
-
-
-/* ============================================================
-   MODAL
-============================================================ */
-
-.modal-backdrop {
-  position: fixed;
-
-  inset: 0;
-
-  background:
-    rgba(15,23,42,.45);
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  padding: 18px;
-
-  z-index: 100;
-}
-
-.modal {
-  width: 100%;
-
-  max-width: 480px;
-
-  background: white;
-
-  border-radius: 16px;
-
-  box-shadow:
-    0 20px 50px
-    rgba(15,23,42,.2);
-
-  overflow: hidden;
-}
-
-.modal-head {
-  padding: 18px 20px;
-
-  border-bottom:
-    1px solid var(--border);
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-}
-
-.modal-head h3 {
-  margin: 0;
-
-  font-size: 15px;
-}
-
-.modal-body {
-  padding: 20px;
-}
-
-.modal-close {
-  border: 0;
-
-  background: transparent;
-
-  font-size: 22px;
-
-  color: var(--muted);
-
-  cursor: pointer;
-}
-
-textarea {
-  width: 100%;
-
-  border:
-    1px solid var(--border);
-
-  border-radius: 9px;
-
-  padding: 11px;
-
-  font-family: var(--font);
-
-  font-size: 13px;
-
-  resize: vertical;
-
-  min-height: 110px;
-}
-
-textarea:focus {
-  outline: none;
-
-  border-color:
-    var(--primary);
-
-  box-shadow:
-    0 0 0 3px
-    rgba(37,99,235,.1);
-}
-
-
-/* ============================================================
-   ALERT
-============================================================ */
-
-.alert {
-  padding: 12px 14px;
-
-  border-radius: 9px;
-
-  font-size: 12px;
-
-  margin-bottom: 16px;
-}
-
-.alert-success {
-  background: var(--success-bg);
-
-  color: var(--success);
-
-  border:
-    1px solid #bbf7d0;
-}
-
-.alert-error {
-  background: var(--danger-bg);
-
-  color: var(--danger);
-
-  border:
-    1px solid #fecaca;
-}
-
-
-/* ============================================================
-   EMPTY
-============================================================ */
-
-.empty {
-  text-align: center;
-
-  padding: 35px 15px;
-
-  color: var(--muted);
-
-  font-size: 13px;
-}
-
-
-/* ============================================================
-   HIDDEN
-============================================================ */
-
-[hidden] {
-  display: none !important;
-}
-
-
-/* ============================================================
-   MOBILE
-============================================================ */
-
-@media (max-width: 800px) {
-
-  .stats {
-    grid-template-columns:
-      repeat(2, 1fr);
-  }
-
-  .student-info-grid {
-    grid-template-columns:
-      1fr 1fr;
-  }
-}
-
-@media (max-width: 520px) {
-
-  .container {
-    padding:
-      22px
-      14px
-      40px;
-  }
-
-  .wallet {
-    display: none;
-  }
-
-  .welcome h1 {
-    font-size: 21px;
-  }
-
-  .profile-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .student-info-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .submission-top {
-    flex-direction: column;
-  }
-
-  .submission-actions {
-    flex-direction: column;
-  }
-
-  .submission-actions .btn {
-    width: 100%;
-  }
-
-}
-
-</style></head><body><!-- ============================================================
-     HEADER
-============================================================ --><header class="topbar">  <div class="topbar-inner"><div class="brand">
-
-  <div class="logo">
-    S
-  </div>
-
-  <div class="brand-text">
-
-    <strong>
-      SIWES Portal
-    </strong>
-
-    <span>
-      Supervisor Dashboard
-    </span>
-
-  </div>
-
-</div>
-
-
-<div
-  class="wallet"
-  id="walletDisplay"
->
-  Connecting...
-</div>
-
-  </div></header><!-- ============================================================
-     MAIN
-============================================================ --><main class="container">  <!-- WELCOME -->  <section class="welcome"><h1>
-  Welcome,
-  <span id="supervisorName">
-    Supervisor
-  </span>
-</h1>
-
-<p>
-  Review student SIWES records and manage their approval status.
-</p>
-
-  </section>  <!-- ============================================================
-       STATS
-  ============================================================ -->  <section class="stats"><div class="stat">
-
-  <div class="stat-label">
-    Total
-  </div>
-
-  <div
-    class="stat-value"
-    id="totalCount"
-  >
-    0
-  </div>
-
-</div>
-
-
-<div class="stat">
-
-  <div class="stat-label">
-    Pending
-  </div>
-
-  <div
-    class="stat-value"
-    id="pendingCount"
-  >
-    0
-  </div>
-
-</div>
-
-
-<div class="stat">
-
-  <div class="stat-label">
-    Approved
-  </div>
-
-  <div
-    class="stat-value"
-    id="approvedCount"
-  >
-    0
-  </div>
-
-</div>
-
-
-<div class="stat">
-
-  <div class="stat-label">
-    Rejected
-  </div>
-
-  <div
-    class="stat-value"
-    id="rejectedCount"
-  >
-    0
-  </div>
-
-</div>
-
-  </section>  <!-- ============================================================
-       PROFILE
-  ============================================================ -->  <section
-    class="card"
-    style="margin-bottom:18px"
-  ><div class="card-head">
-
-  <h2>
-    Supervisor Identity
-  </h2>
-
-  <span
-    class="status status-approved"
-  >
-    Verified
-  </span>
-
-</div>
-
-
-<div class="card-body">
-
-  <div class="profile-grid">
-
-
-    <div class="profile-item">
-
-      <small>
-        Full Name
-      </small>
-
-      <strong id="profileName">
-        —
-      </strong>
-
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#141b2e; --indigo:#1f2f52; --paper:#f6f4ec; --paper-2:#efece1; --rule:#d9d3c0;
+  --text:#1c2333; --muted:#6b6a5e;
+  --accent:#0f7a5c; --accent-hover:#0b5f47; --accent-light:#e6f3ee;
+  --warn:#c9822a; --warn-bg:#fbeed9;
+  --danger:#c1483f; --danger-bg:#fbeaea;
+  --serif:"Fraunces",Georgia,serif; --sans:"Inter",-apple-system,sans-serif; --mono:"JetBrains Mono",monospace;
+  --pal1:#c9822a; --pal2:#3f7bb0; --pal3:#0f7a5c; --pal4:#a24f8f; --pal5:#b0562f;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--sans);color:var(--text);background:var(--paper);-webkit-font-smoothing:antialiased}
+.shell{min-height:100vh; display:flex}
+
+/* SIDEBAR */
+.sidebar{flex:0 0 250px; background:linear-gradient(165deg,var(--indigo),var(--ink)); color:#eef1f8; display:flex; flex-direction:column; justify-content:space-between; padding:20px; position:sticky; top:0; height:100vh}
+.brand{display:flex; align-items:center; gap:10px; margin-bottom:24px}
+.brand .mk{width:34px; height:34px; border-radius:10px; background:rgba(255,255,255,.14); display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:15px}
+.brand .tx strong{display:block; font-size:14px}
+.brand .tx span{display:block; font-size:10.5px; color:#a9b7dd}
+.side-profile{border-top:1px solid rgba(255,255,255,.14); padding-top:16px}
+.side-profile .nm{font-size:13.5px; font-weight:600}
+.side-profile .rl{font-size:11px; color:#93a1c6; margin-top:2px; letter-spacing:.05em}
+.side-profile .wl{margin-top:10px; font-family:var(--mono); font-size:10.5px; color:#a9b7dd; word-break:break-all}
+.logout-btn{margin-top:14px; width:100%; padding:10px; background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.2); color:#f5d9d9; border-radius:10px; font-family:var(--sans); font-size:12px; font-weight:600; cursor:pointer}
+.logout-btn:hover{background:rgba(255,255,255,.16)}
+
+/* MAIN - Reduced top space */
+.main{flex:1; padding:20px 40px 40px 40px; max-width:1180px}
+.page-head{margin-bottom:18px}
+.page-head .eyebrow{font-size:12px; color:var(--muted); letter-spacing:.08em; margin-bottom:4px}
+.page-head h1{font-family:var(--serif); font-size:26px; font-weight:600; margin:0 0 4px}
+.page-head p{margin:0; color:var(--muted); font-size:13.5px}
+
+/* STATS */
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:22px}
+.stat{background:#fff; border:1px solid var(--rule); border-radius:16px; padding:15px 18px; position:relative; overflow:hidden}
+.stat::before{content:""; position:absolute; top:0; left:0; right:0; height:5px; background:var(--dot)}
+.stat .lb{font-size:11.5px; color:var(--muted)}
+.stat .vl{font-family:var(--serif); font-size:26px; font-weight:600; margin-top:4px}
+.stat.s-total{--dot:var(--indigo)}
+.stat.s-pending{--dot:var(--warn)}
+.stat.s-approved{--dot:var(--accent)}
+.stat.s-rejected{--dot:var(--danger)}
+
+/* CARD */
+.card{background:#fff; border:1px solid var(--rule); border-radius:18px}
+.card-head{padding:16px 20px; border-bottom:1px solid var(--rule); display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap}
+.card-head h2{font-family:var(--serif); font-size:17px; margin:0; font-weight:600}
+.card-body{padding:20px}
+
+.filters{display:flex; gap:6px; flex-wrap:wrap}
+.filter-btn{border:1px solid var(--rule); background:#fff; color:var(--muted); border-radius:999px; padding:6px 12px; font-family:var(--sans); font-size:12px; font-weight:600; cursor:pointer; transition:transform .1s}
+.filter-btn:hover{transform:translateY(-1px)}
+.filter-btn.active{background:var(--indigo); border-color:var(--indigo); color:#fff}
+
+/* SUBMISSION CARD */
+.sub{border:1px solid var(--rule); border-radius:16px; padding:18px; margin-bottom:14px; background:#fff; transition:box-shadow .15s, transform .15s}
+.sub:hover{box-shadow:0 8px 22px rgba(20,27,46,.08); transform:translateY(-2px)}
+.sub:last-child{margin-bottom:0}
+.sub-top{display:flex; gap:13px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap}
+.sub-who{display:flex; gap:12px; align-items:center}
+.avatar{width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:14px; flex-shrink:0}
+.sub-title{font-weight:700; font-size:14px}
+.sub-meta{color:var(--muted); font-size:11.5px; margin-top:2px}
+
+.status{display:inline-flex; align-items:center; gap:6px; border-radius:999px; padding:5px 11px; font-size:10.5px; font-weight:700; letter-spacing:.03em}
+.status::before{content:""; width:6px; height:6px; border-radius:50%}
+.status-pending{background:var(--warn-bg); color:var(--warn)}
+.status-pending::before{background:var(--warn)}
+.status-approved{background:var(--accent-light); color:var(--accent-hover)}
+.status-approved::before{background:var(--accent)}
+.status-rejected{background:var(--danger-bg); color:var(--danger)}
+.status-rejected::before{background:var(--danger)}
+
+.sub-details{margin-top:13px; display:grid; grid-template-columns:repeat(3,1fr); gap:9px}
+.detail{background:var(--paper-2); padding:9px 11px; border-radius:10px}
+.detail small{display:block; color:var(--muted); font-size:10px; margin-bottom:2px}
+.detail strong{font-size:12px; word-break:break-word}
+
+.sub-content{margin-top:12px; color:var(--muted); font-size:13px; line-height:1.6; white-space:pre-wrap}
+.sub-note{margin-top:11px; padding:10px 12px; border-radius:10px; font-size:12px}
+.sub-note.rej{background:var(--danger-bg); color:var(--danger)}
+.sub-note.rev{margin-top:10px; color:var(--muted); font-size:11px; background:none; padding:0}
+
+.sub-actions{display:flex; gap:9px; margin-top:15px; padding-top:14px; border-top:1px solid var(--rule); flex-wrap:wrap}
+.btn{border:0; border-radius:999px; padding:10px 17px; font-family:var(--sans); font-size:12.5px; font-weight:700; cursor:pointer; transition:transform .1s}
+.btn:hover{transform:translateY(-1px)}
+.btn:disabled{opacity:.55; cursor:not-allowed; transform:none}
+.btn-approve{background:var(--accent); color:#fff}
+.btn-approve:hover{background:var(--accent-hover)}
+.btn-reject{background:var(--danger-bg); color:var(--danger)}
+
+/* MODAL */
+.modal-bg{position:fixed; inset:0; background:rgba(20,27,46,.5); display:flex; align-items:center; justify-content:center; padding:18px; z-index:100}
+.modal{width:100%; max-width:440px; background:#fff; border-radius:20px; overflow:hidden; box-shadow:0 24px 60px rgba(20,27,46,.25)}
+.modal-head{padding:18px 22px; border-bottom:1px solid var(--rule); display:flex; justify-content:space-between; align-items:center}
+.modal-head h3{margin:0; font-family:var(--serif); font-size:16px}
+.modal-close{border:0; background:none; font-size:22px; color:var(--muted); cursor:pointer}
+.modal-body{padding:22px}
+.modal-body p{color:var(--muted); font-size:13px; line-height:1.5; margin:0 0 12px}
+textarea{width:100%; border:1px solid var(--rule); border-radius:12px; padding:12px; font-family:var(--sans); font-size:13px; resize:vertical; min-height:100px}
+textarea:focus{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px rgba(31,47,82,.1)}
+.modal-actions{display:flex; gap:9px; margin-top:14px}
+.btn-cancel{flex:1; background:var(--paper-2); color:var(--text); border-radius:999px}
+.btn-confirm-reject{flex:1; background:var(--danger); color:#fff; border-radius:999px}
+
+.alert{padding:12px 15px; border-radius:12px; font-size:12.5px; margin-bottom:16px}
+.alert-success{background:var(--accent-light); color:var(--accent-hover)}
+.alert-error{background:var(--danger-bg); color:var(--danger)}
+.empty{text-align:center; padding:40px 15px; color:var(--muted); font-size:13px}
+[hidden]{display:none!important}
+
+@media(max-width:900px){
+  .shell{flex-direction:column}
+  .sidebar{position:relative; height:auto; flex-direction:row; align-items:center; gap:16px; padding:16px 20px}
+  .brand{margin-bottom:0}
+  .side-profile{display:none}
+  .main{padding:20px 18px}
+  .stats{grid-template-columns:1fr 1fr}
+  .sub-details{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="mk">S</div><div class="tx"><strong>SIWES Registry</strong><span>Supervisor Console</span></div></div>
+    <div class="side-profile">
+      <div class="nm" id="supName">Supervisor</div>
+      <div class="rl" id="supDept">—</div>
+      <div class="wl" id="sideWallet">—</div>
+      <button id="logoutBtn" class="logout-btn">Disconnect wallet</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-head">
+      <div class="eyebrow">Institutional Supervisor</div>
+      <h1>Student submissions</h1>
+      <p>Review logbooks and reports, then approve or return them with feedback.</p>
     </div>
 
+    <section class="stats">
+      <div class="stat s-total"><div class="lb">Total</div><div class="vl" id="totalCount">0</div></div>
+      <div class="stat s-pending"><div class="lb">Pending</div><div class="vl" id="pendingCount">0</div></div>
+      <div class="stat s-approved"><div class="lb">Approved</div><div class="vl" id="approvedCount">0</div></div>
+      <div class="stat s-rejected"><div class="lb">Rejected</div><div class="vl" id="rejectedCount">0</div></div>
+    </section>
 
-    <div class="profile-item">
+    <section class="card">
+      <div class="card-head">
+        <h2>Submissions</h2>
+        <div class="filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="pending">Pending</button>
+          <button class="filter-btn" data-filter="approved">Approved</button>
+          <button class="filter-btn" data-filter="rejected">Rejected</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div id="message" hidden></div>
+        <div id="list"><div class="empty">Loading student submissions…</div></div>
+      </div>
+    </section>
+  </main>
+</div>
 
-      <small>
-        Staff ID
-      </small>
-
-      <strong id="profileMatric">
-        —
-      </strong>
-
+<div id="rejectModal" class="modal-bg" hidden>
+  <div class="modal">
+    <div class="modal-head"><h3>Return this submission</h3><button class="modal-close" id="closeModalBtn">×</button></div>
+    <div class="modal-body">
+      <p>Give the student a short note on what needs fixing.</p>
+      <textarea id="rejectionReason" placeholder="e.g. Please provide more detail about week 3's activities…"></textarea>
+      <div class="modal-actions">
+        <button id="cancelRejectBtn" class="btn btn-cancel">Cancel</button>
+        <button id="confirmRejectBtn" class="btn btn-confirm-reject">Send back</button>
+      </div>
     </div>
-
-
-    <div class="profile-item">
-
-      <small>
-        Department
-      </small>
-
-      <strong id="profileDepartment">
-        —
-      </strong>
-
-    </div>
-
-
-    <div class="profile-item">
-
-      <small>
-        Role
-      </small>
-
-      <strong>
-        SUPERVISOR
-      </strong>
-
-    </div>
-
-
-    <div
-      class="profile-item"
-      style="grid-column:1/-1"
-    >
-
-      <small>
-        TON Wallet Address
-      </small>
-
-      <strong
-        id="profileWallet"
-        style="
-          font-family:var(--mono);
-          font-size:11px;
-          word-break:break-all;
-        "
-      >
-        —
-      </strong>
-
-    </div>
-
-
   </div>
-
 </div>
 
-  </section>  <!-- ============================================================
-       SUBMISSIONS
-  ============================================================ -->  <section class="card"><div class="card-head">
+<script type="module">
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-  <h2>
-    Student Submissions
-  </h2>
+const supabase = createClient(
+  "https://dxfvrnjqckeoutlpeupk.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4ZnZybmpxY2tlb3V0bHBldXBrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyODgyODUsImV4cCI6MjEwMzg2NDI4NX0._scP1B2Rzyw4OPy8eCg0thpBzY0IwgweeWjys3dT-As"
+);
 
+const $ = id => document.getElementById(id);
+const list = $("list"), message = $("message");
+const rejectModal = $("rejectModal"), rejectionReason = $("rejectionReason"), confirmRejectBtn = $("confirmRejectBtn");
+const PALETTE = ["var(--pal1)","var(--pal2)","var(--pal3)","var(--pal4)","var(--pal5)"];
 
-  <div class="filters">
+let currentUser = null, allSubs = [], activeFilter = "all", rejectingId = null;
 
-    <button
-      class="filter-btn active"
-      data-filter="all"
-    >
-      All
-    </button>
-
-    <button
-      class="filter-btn"
-      data-filter="pending"
-    >
-      Pending
-    </button>
-
-    <button
-      class="filter-btn"
-      data-filter="approved"
-    >
-      Approved
-    </button>
-
-    <button
-      class="filter-btn"
-      data-filter="rejected"
-    >
-      Rejected
-    </button>
-
-  </div>
-
-</div>
-
-
-<div class="card-body">
-
-  <div
-    id="message"
-    hidden
-  ></div>
-
-
-  <div id="submissionsList">
-
-    <div class="empty">
-      Loading student submissions...
-    </div>
-
-  </div>
-
-</div>
-
-  </section>  <!-- ============================================================
-       LOGOUT
-  ============================================================ -->  <div style="margin-top:18px"><button
-  id="logoutBtn"
-  class="btn btn-danger btn-full"
->
-  Disconnect Wallet
-</button>
-
-  </div></main><!-- ============================================================
-     REJECTION MODAL
-============================================================ --><div
-  id="rejectModal"
-  class="modal-backdrop"
-  hidden
->  <div class="modal"><div class="modal-head">
-
-  <h3>
-    Reject SIWES Submission
-  </h3>
-
-  <button
-    class="modal-close"
-    id="closeModalBtn"
-  >
-    ×
-  </button>
-
-</div>
-
-
-<div class="modal-body">
-
-  <p
-    style="
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.5;
-      margin-top:0;
-    "
-  >
-    Give the student a reason why this submission
-    was rejected.
-  </p>
-
-
-  <textarea
-    id="rejectionReason"
-    placeholder="e.g. Please provide more details about the work carried out..."
-  ></textarea>
-
-
-  <div
-    style="
-      display:flex;
-      gap:8px;
-      margin-top:14px;
-    "
-  >
-
-    <button
-      id="cancelRejectBtn"
-      class="btn"
-      style="
-        flex:1;
-        background:var(--bg);
-        color:var(--text);
-        border:1px solid var(--border);
-      "
-    >
-      Cancel
-    </button>
-
-
-    <button
-      id="confirmRejectBtn"
-      class="btn btn-danger"
-      style="flex:1"
-    >
-      Reject Submission
-    </button>
-
-  </div>
-
-</div>
-
-  </div></div><!-- ============================================================
-     JAVASCRIPT
-============================================================ --><script type="module">
-
-
-// ============================================================
-// SUPABASE
-// ============================================================
-
-import {
-  createClient
+function getStoredUser(){
+  try { const raw = localStorage.getItem("siwes_user"); return raw ? JSON.parse(raw) : null; }
+  catch { return null; }
 }
-from
-"https://esm.sh/@supabase/supabase-js@2";
-
-
-const SUPABASE_URL =
-  "https://dxfvrnjqckeoutlpeupk.supabase.co";
-
-
-const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4ZnZybmpxY2tlb3V0bHBldXBrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyODgyODUsImV4cCI6MjEwMzg2NDI4NX0._scP1B2Rzyw4OPy8eCg0thpBzY0IwgweeWjys3dT-As";
-  
-
-const supabase =
-  createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-  );
-
-
-// ============================================================
-// DOM
-// ============================================================
-
-const supervisorName =
-  document.getElementById(
-    "supervisorName"
-  );
-
-const profileName =
-  document.getElementById(
-    "profileName"
-  );
-
-const profileMatric =
-  document.getElementById(
-    "profileMatric"
-  );
-
-const profileDepartment =
-  document.getElementById(
-    "profileDepartment"
-  );
-
-const profileWallet =
-  document.getElementById(
-    "profileWallet"
-  );
-
-const walletDisplay =
-  document.getElementById(
-    "walletDisplay"
-  );
-
-const totalCount =
-  document.getElementById(
-    "totalCount"
-  );
-
-const pendingCount =
-  document.getElementById(
-    "pendingCount"
-  );
-
-const approvedCount =
-  document.getElementById(
-    "approvedCount"
-  );
-
-const rejectedCount =
-  document.getElementById(
-    "rejectedCount"
-  );
-
-const submissionsList =
-  document.getElementById(
-    "submissionsList"
-  );
-
-const message =
-  document.getElementById(
-    "message"
-  );
-
-const logoutBtn =
-  document.getElementById(
-    "logoutBtn"
-  );
-
-const rejectModal =
-  document.getElementById(
-    "rejectModal"
-  );
-
-const rejectionReason =
-  document.getElementById(
-    "rejectionReason"
-  );
-
-const closeModalBtn =
-  document.getElementById(
-    "closeModalBtn"
-  );
-
-const cancelRejectBtn =
-  document.getElementById(
-    "cancelRejectBtn"
-  );
-
-const confirmRejectBtn =
-  document.getElementById(
-    "confirmRejectBtn"
-  );
-
-
-// ============================================================
-// STATE
-// ============================================================
-
-let currentUser = null;
-
-let allSubmissions = [];
-
-let activeFilter = "all";
-
-let submissionBeingRejected = null;
-
-
-// ============================================================
-// GET STORED USER
-// ============================================================
-
-function getStoredUser() {
-
-  try {
-
-    const raw =
-      localStorage.getItem(
-        "siwes_user"
-      );
-
-    if (!raw) {
-      return null;
-    }
-
-    return JSON.parse(raw);
-
-  } catch (error) {
-
-    console.error(
-      "Could not read stored user:",
-      error
-    );
-
-    return null;
-  }
-
+function redirectByRole(role){
+  const pages = { student:"student.html", supervisor:"supervisor.html", hod:"hod.html", admin:"admin.html" };
+  window.location.href = pages[role] || "index.html";
+}
+function escapeHtml(v){
+  return String(v ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+function initials(name){
+  const parts = String(name || "?").trim().split(/\s+/);
+  return ((parts[0]?.[0] || "") + (parts[1]?.[0] || "")).toUpperCase() || "?";
+}
+function avatarColor(seed){
+  const s = String(seed || "");
+  let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return PALETTE[h % PALETTE.length];
 }
 
+async function loadUser(){
+  const stored = getStoredUser();
+  if (!stored) { location.href = "index.html"; return; }
+  currentUser = stored;
+  if (currentUser.role && currentUser.role !== "supervisor") { redirectByRole(currentUser.role); return; }
 
-// ============================================================
-// ROLE REDIRECT
-// ============================================================
+  $("supName").textContent = currentUser.full_name || "Supervisor";
+  $("supDept").textContent = currentUser.department || "SUPERVISOR";
+  const w = currentUser.wallet_address || "—";
+  $("sideWallet").textContent = w.length > 18 ? w.slice(0,9) + "…" + w.slice(-6) : w;
+  $("sideWallet").title = w;
 
-function redirectByRole(role) {
-
-  if (role === "student") {
-
-    window.location.href =
-      "student.html";
-
-    return;
-  }
-
-
-  if (role === "supervisor") {
-
-    window.location.href =
-      "supervisor.html";
-
-    return;
-  }
-
-
-  if (role === "admin") {
-
-    window.location.href =
-      "admin.html";
-
-    return;
-  }
-
-
-  window.location.href =
-    "index.html";
-
+  await loadSubs();
 }
 
-
-// ============================================================
-// LOAD USER
-// ============================================================
-
-async function loadUser() {
-
-  const storedUser =
-    getStoredUser();
-
-
-  if (!storedUser) {
-
-    window.location.href =
-      "index.html";
-
-    return;
-  }
-
-
-  currentUser =
-    storedUser;
-
-
-  // Only supervisors belong here.
-
-  if (
-    currentUser.role &&
-    currentUser.role !== "supervisor"
-  ) {
-
-    redirectByRole(
-      currentUser.role
-    );
-
-    return;
-  }
-
-
-  renderUser();
-
-  await loadSubmissions();
-
-}
-
-
-// ============================================================
-// RENDER USER
-// ============================================================
-
-function renderUser() {
-
-  const name =
-    currentUser.full_name ||
-    "Supervisor";
-
-
-  const matric =
-    currentUser.matric_number ||
-    "—";
-
-
-  const department =
-    currentUser.department ||
-    "—";
-
-
-  const wallet =
-    currentUser.wallet_address ||
-    "—";
-
-
-  supervisorName.textContent =
-    name.split(" ")[0];
-
-
-  profileName.textContent =
-    name;
-
-
-  profileMatric.textContent =
-    matric;
-
-
-  profileDepartment.textContent =
-    department;
-
-
-  profileWallet.textContent =
-    wallet;
-
-
-  if (wallet.length > 14) {
-
-    walletDisplay.textContent =
-      wallet.substring(0, 7) +
-      "..." +
-      wallet.substring(
-        wallet.length - 7
-      );
-
-  } else {
-
-    walletDisplay.textContent =
-      wallet;
-
-  }
-
-}
-
-
-// ============================================================
-// LOAD SUBMISSIONS
-// ============================================================
-
-async function loadSubmissions() {
-
-  submissionsList.innerHTML = `
-    <div class="empty">
-      Loading student submissions...
-    </div>
-  `;
-
-
-  const {
-    data,
-    error
-  } = await supabase
-
-    .from("siwes_submissions")
-
-    .select("*")
-
-    .order(
-      "created_at",
-      {
-        ascending: false
-      }
-    );
-
+async function loadSubs(){
+  list.innerHTML = `<div class="empty">Loading student submissions…</div>`;
+  const { data, error } = await supabase.from("siwes_submissions").select("*").order("created_at", { ascending:false });
 
   if (error) {
-
-    console.error(
-      "Submission loading error:",
-      error
-    );
-
-
-    submissionsList.innerHTML = `
-      <div class="empty"
-           style="color:var(--danger)">
-        Could not load student submissions.
-        <br><br>
-        ${escapeHtml(error.message)}
-      </div>
-    `;
-
+    list.innerHTML = `<div class="empty" style="color:var(--danger)">Could not load submissions.<br><br>${escapeHtml(error.message)}</div>`;
     return;
   }
 
-
-  allSubmissions =
-    data || [];
-
-
+  allSubs = data || [];
   updateStats();
-
-  renderSubmissions();
-
+  render();
 }
 
-
-// ============================================================
-// UPDATE STATS
-// ============================================================
-
-function updateStats() {
-
-  const total =
-    allSubmissions.length;
-
-
-  const pending =
-    allSubmissions.filter(
-      item =>
-        item.status === "pending"
-    ).length;
-
-
-  const approved =
-    allSubmissions.filter(
-      item =>
-        item.status === "approved"
-    ).length;
-
-
-  const rejected =
-    allSubmissions.filter(
-      item =>
-        item.status === "rejected"
-    ).length;
-
-
-  totalCount.textContent =
-    total;
-
-
-  pendingCount.textContent =
-    pending;
-
-
-  approvedCount.textContent =
-    approved;
-
-
-  rejectedCount.textContent =
-    rejected;
-
+function updateStats(){
+  $("totalCount").textContent = allSubs.length;
+  $("pendingCount").textContent = allSubs.filter(s => s.status === "pending").length;
+  $("approvedCount").textContent = allSubs.filter(s => s.status === "approved").length;
+  $("rejectedCount").textContent = allSubs.filter(s => s.status === "rejected").length;
 }
 
+function render(){
+  const subs = activeFilter === "all" ? allSubs : allSubs.filter(s => (s.status || "pending") === activeFilter);
 
-// ============================================================
-// RENDER SUBMISSIONS
-// ============================================================
-
-function renderSubmissions() {
-
-  let submissions =
-    allSubmissions;
-
-
-  if (activeFilter !== "all") {
-
-    submissions =
-      allSubmissions.filter(
-        item =>
-          (item.status || "pending") ===
-          activeFilter
-      );
-
-  }
-
-
-  if (!submissions.length) {
-
-    submissionsList.innerHTML = `
-
-      <div class="empty">
-
-        ${
-          activeFilter === "all"
-            ? "No student submissions yet."
-            : `No ${activeFilter} submissions.`
-        }
-
-      </div>
-
-    `;
-
+  if (!subs.length) {
+    list.innerHTML = `<div class="empty">${activeFilter === "all" ? "No student submissions yet." : `No ${activeFilter} submissions.`}</div>`;
     return;
   }
 
-
-  submissionsList.innerHTML =
-    submissions
-      .map(
-        item =>
-          createSubmissionHtml(item)
-      )
-      .join("");
-
+  list.innerHTML = subs.map(cardHtml).join("");
 }
 
-
-// ============================================================
-// CREATE SUBMISSION HTML
-// ============================================================
-
-function createSubmissionHtml(item) {
-
-  const status =
-    item.status ||
-    "pending";
-
-
-  const statusClass =
-    status === "approved"
-      ? "status-approved"
-      : status === "rejected"
-        ? "status-rejected"
-        : "status-pending";
-
-
-  const createdDate =
-    item.created_at
-      ? new Date(
-          item.created_at
-        ).toLocaleString()
-      : "—";
-
-
-  const reviewedDate =
-    item.reviewed_at
-      ? new Date(
-          item.reviewed_at
-        ).toLocaleString()
-      : null;
-
-
-  const isPending =
-    status === "pending";
-
+function cardHtml(item){
+  const status = item.status || "pending";
+  const statusClass = status === "approved" ? "status-approved" : status === "rejected" ? "status-rejected" : "status-pending";
+  const created = item.created_at ? new Date(item.created_at).toLocaleString() : "—";
+  const reviewed = item.reviewed_at ? new Date(item.reviewed_at).toLocaleString() : null;
+  const name = item.student_name || "Unknown student";
 
   return `
-
-    <div
-      class="submission"
-      data-id="${escapeHtml(item.id || "")}"
-    >
-
-      <div class="submission-top">
-
-        <div>
-
-          <div class="submission-title">
-
-            ${escapeHtml(
-              item.title ||
-              "SIWES Submission"
-            )}
-
+    <div class="sub" data-id="${escapeHtml(item.id || "")}">
+      <div class="sub-top">
+        <div class="sub-who">
+          <div class="avatar" style="background:${avatarColor(name)}">${escapeHtml(initials(name))}</div>
+          <div>
+            <div class="sub-title">${escapeHtml(item.title || "SIWES Submission")}</div>
+            <div class="sub-meta">${escapeHtml(name)} · Week ${escapeHtml(item.week || item.week_number || "—")} · ${escapeHtml(created)}</div>
           </div>
-
-          <div class="submission-date">
-
-            Week
-            ${escapeHtml(
-              item.week || "—"
-            )}
-
-            •
-
-            Submitted
-            ${escapeHtml(
-              createdDate
-            )}
-
-          </div>
-
         </div>
-
-
-        <span
-          class="status ${statusClass}"
-        >
-
-          ${status.toUpperCase()}
-
-        </span>
-
+        <span class="status ${statusClass}">${status.toUpperCase()}</span>
       </div>
 
-
-      <div class="student-info">
-
-        <div class="student-info-grid">
-
-
-          <div class="info-item">
-
-            <small>
-              STUDENT
-            </small>
-
-            <strong>
-              ${escapeHtml(
-                item.student_name ||
-                "—"
-              )}
-            </strong>
-
-          </div>
-
-
-          <div class="info-item">
-
-            <small>
-              MATRIC / ID
-            </small>
-
-            <strong>
-              ${escapeHtml(
-                item.matric_number ||
-                "—"
-              )}
-            </strong>
-
-          </div>
-
-
-          <div class="info-item">
-
-            <small>
-              DEPARTMENT
-            </small>
-
-            <strong>
-              ${escapeHtml(
-                item.department ||
-                "—"
-              )}
-            </strong>
-
-          </div>
-
-
-        </div>
-
+      <div class="sub-details">
+        <div class="detail"><small>MATRIC / ID</small><strong>${escapeHtml(item.matric_number || "—")}</strong></div>
+        <div class="detail"><small>DEPARTMENT</small><strong>${escapeHtml(item.department || "—")}</strong></div>
+        <div class="detail"><small>TYPE</small><strong>${escapeHtml((item.submission_type || "logbook").replace("_"," "))}</strong></div>
       </div>
 
+      <div class="sub-content">${escapeHtml(item.content || "No description provided.")}</div>
 
-      <div class="submission-content">
+      ${item.reviewer_comment ? `<div class="sub-note rej"><strong>Note to student:</strong> ${escapeHtml(item.reviewer_comment)}</div>` : ""}
+      ${reviewed ? `<div class="sub-note rev">Reviewed ${escapeHtml(reviewed)}</div>` : ""}
 
-        ${escapeHtml(
-          item.content ||
-          "No description provided."
-        )}
-
-      </div>
-
-
-      ${
-        item.rejection_reason
-          ? `
-
-            <div
-              style="
-                margin-top:12px;
-                padding:11px;
-                border-radius:8px;
-                background:var(--danger-bg);
-                color:var(--danger);
-                font-size:12px;
-              "
-            >
-
-              <strong>
-                Rejection reason:
-              </strong>
-
-              ${escapeHtml(
-                item.rejection_reason
-              )}
-
-            </div>
-
-          `
-          : ""
-      }
-
-
-      ${
-        reviewedDate
-          ? `
-
-            <div
-              style="
-                margin-top:10px;
-                color:var(--muted);
-                font-size:11px;
-              "
-            >
-
-              Reviewed:
-              ${escapeHtml(
-                reviewedDate
-              )}
-
-            </div>
-
-          `
-          : ""
-      }
-
-
-      ${
-        isPending
-          ? `
-
-            <div
-              class="submission-actions"
-            >
-
-              <button
-                class="btn btn-success"
-                onclick="approveSubmission('${escapeHtml(item.id)}')"
-              >
-                ✓ Approve
-              </button>
-
-
-              <button
-                class="btn btn-danger"
-                onclick="openRejectModal('${escapeHtml(item.id)}')"
-              >
-                ✕ Reject
-              </button>
-
-            </div>
-
-          `
-          : ""
-      }
-
+      ${status === "pending" ? `
+        <div class="sub-actions">
+          <button class="btn btn-approve" onclick="approveSub('${escapeHtml(item.id)}')">✓ Approve</button>
+          <button class="btn btn-reject" onclick="openReject('${escapeHtml(item.id)}')">Send back</button>
+        </div>` : ""}
     </div>
-
   `;
-
 }
 
-
-// ============================================================
-// APPROVE SUBMISSION
-// ============================================================
-
-window.approveSubmission =
-  async function(id) {
-
-    const submission =
-      allSubmissions.find(
-        item =>
-          String(item.id) ===
-          String(id)
-      );
-
-
-    if (!submission) {
-      return;
-    }
-
-
-    const confirmed =
-      confirm(
-        `Approve "${submission.title || "this submission"}"?`
-      );
-
-
-    if (!confirmed) {
-      return;
-    }
-
-
-    try {
-
-      const {
-        error
-      } = await supabase
-
-        .from("siwes_submissions")
-
-        .update({
-
-          status:
-            "approved",
-
-          reviewed_by:
-            currentUser.wallet_address,
-
-          reviewed_at:
-            new Date().toISOString(),
-
-          rejection_reason:
-            null
-
-        })
-
-        .eq(
-          "id",
-          id
-        );
-
-
-      if (error) {
-        throw error;
-      }
-
-
-      showMessage(
-        "Submission approved successfully.",
-        "success"
-      );
-
-
-      await loadSubmissions();
-
-
-    } catch (error) {
-
-      console.error(
-        "Approval error:",
-        error
-      );
-
-
-      showMessage(
-        error.message ||
-        "Could not approve submission.",
-        "error"
-      );
-
-    }
-
-  };
-
-
-// ============================================================
-// OPEN REJECTION MODAL
-// ============================================================
-
-window.openRejectModal =
-  function(id) {
-
-    submissionBeingRejected =
-      id;
-
-
-    rejectionReason.value =
-      "";
-
-
-    rejectModal.hidden =
-      false;
-
-
-    setTimeout(
-      () =>
-        rejectionReason.focus(),
-      50
-    );
-
-  };
-
-
-// ============================================================
-// CLOSE REJECTION MODAL
-// ============================================================
-
-function closeRejectModal() {
-
-  submissionBeingRejected =
-    null;
-
-
-  rejectionReason.value =
-    "";
-
-
-  rejectModal.hidden =
-    true;
-
-}
-
-
-// ============================================================
-// CONFIRM REJECTION
-// ============================================================
-
-confirmRejectBtn.addEventListener(
-  "click",
-  async function() {
-
-    if (!submissionBeingRejected) {
-      return;
-    }
-
-
-    const reason =
-      rejectionReason.value.trim();
-
-
-    if (!reason) {
-
-      alert(
-        "Please provide a rejection reason."
-      );
-
-      return;
-    }
-
-
-    confirmRejectBtn.disabled =
-      true;
-
-
-    confirmRejectBtn.textContent =
-      "Rejecting...";
-
-
-    try {
-
-      const {
-        error
-      } = await supabase
-
-        .from("siwes_submissions")
-
-        .update({
-
-          status:
-            "rejected",
-
-          reviewed_by:
-            currentUser.wallet_address,
-
-          reviewed_at:
-            new Date().toISOString(),
-
-          rejection_reason:
-            reason
-
-        })
-
-        .eq(
-          "id",
-          submissionBeingRejected
-        );
-
-
-      if (error) {
-        throw error;
-      }
-
-
-      closeRejectModal();
-
-
-      showMessage(
-        "Submission rejected successfully.",
-        "success"
-      );
-
-
-      await loadSubmissions();
-
-
-    } catch (error) {
-
-      console.error(
-        "Rejection error:",
-        error
-      );
-
-
-      showMessage(
-        error.message ||
-        "Could not reject submission.",
-        "error"
-      );
-
-    } finally {
-
-      confirmRejectBtn.disabled =
-        false;
-
-      confirmRejectBtn.textContent =
-        "Reject Submission";
-
-    }
-
+window.approveSub = async function(id){
+  const sub = allSubs.find(s => String(s.id) === String(id));
+  if (!sub || !confirm(`Approve "${sub.title || "this submission"}"?`)) return;
+
+  const { data, error } = await supabase
+    .from("siwes_submissions")
+    .update({
+      status: "approved",
+      reviewed_by: currentUser.id,
+      reviewed_at: new Date().toISOString(),
+      reviewer_comment: null,
+      updated_at: new Date().toISOString()
+    })
+    .eq("id", id)
+    .select();
+
+  if (error) { showMessage(error.message || "Could not approve submission.", "error"); return; }
+
+  if (!data || data.length === 0) {
+    showMessage("Update failed: Row Level Security (RLS) policy in Supabase blocked this update.", "error");
+    return;
   }
-);
 
+  showMessage("Submission approved.", "success");
+  await loadSubs();
+};
 
-// ============================================================
-// MODAL CONTROLS
-// ============================================================
+window.openReject = function(id){
+  rejectingId = id;
+  rejectionReason.value = "";
+  rejectModal.hidden = false;
+  setTimeout(() => rejectionReason.focus(), 50);
+};
+function closeReject(){ rejectingId = null; rejectionReason.value = ""; rejectModal.hidden = true; }
 
-closeModalBtn.addEventListener(
-  "click",
-  closeRejectModal
-);
+confirmRejectBtn.addEventListener("click", async () => {
+  if (!rejectingId) return;
+  const reason = rejectionReason.value.trim();
+  if (!reason) { alert("Please add a short note for the student."); return; }
 
+  confirmRejectBtn.disabled = true;
+  confirmRejectBtn.textContent = "Sending…";
 
-cancelRejectBtn.addEventListener(
-  "click",
-  closeRejectModal
-);
+  const { data, error } = await supabase
+    .from("siwes_submissions")
+    .update({
+      status: "rejected",
+      reviewed_by: currentUser.id,
+      reviewed_at: new Date().toISOString(),
+      reviewer_comment: reason,
+      updated_at: new Date().toISOString()
+    })
+    .eq("id", rejectingId)
+    .select();
 
+  confirmRejectBtn.disabled = false;
+  confirmRejectBtn.textContent = "Send back";
 
-rejectModal.addEventListener(
-  "click",
-  function(event) {
+  if (error) { showMessage(error.message || "Could not return submission.", "error"); return; }
 
-    if (
-      event.target ===
-      rejectModal
-    ) {
-
-      closeRejectModal();
-
-    }
-
+  if (!data || data.length === 0) {
+    showMessage("Update failed: Row Level Security (RLS) policy in Supabase blocked this update.", "error");
+    return;
   }
-);
 
+  closeReject();
+  showMessage("Submission sent back to the student.", "success");
+  await loadSubs();
+});
 
-// ============================================================
-// FILTERS
-// ============================================================
+$("closeModalBtn").addEventListener("click", closeReject);
+$("cancelRejectBtn").addEventListener("click", closeReject);
+rejectModal.addEventListener("click", e => { if (e.target === rejectModal) closeReject(); });
 
-document
-  .querySelectorAll(".filter-btn")
-  .forEach(
-    button => {
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", function(){
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    this.classList.add("active");
+    activeFilter = this.dataset.filter;
+    render();
+  });
+});
 
-      button.addEventListener(
-        "click",
-        function() {
-
-          document
-            .querySelectorAll(
-              ".filter-btn"
-            )
-            .forEach(
-              btn =>
-                btn.classList.remove(
-                  "active"
-                )
-            );
-
-
-          this.classList.add(
-            "active"
-          );
-
-
-          activeFilter =
-            this.dataset.filter;
-
-
-          renderSubmissions();
-
-        }
-      );
-
-    }
-  );
-
-
-// ============================================================
-// MESSAGE
-// ============================================================
-
-function showMessage(
-  text,
-  type
-) {
-
-  message.hidden =
-    false;
-
-
-  message.className =
-    type === "success"
-      ? "alert alert-success"
-      : "alert alert-error";
-
-
-  message.textContent =
-    text;
-
-
-  setTimeout(
-    () => {
-
-      message.hidden =
-        true;
-
-    },
-    5000
-  );
-
+function showMessage(text, type){
+  message.hidden = false;
+  message.className = type === "success" ? "alert alert-success" : "alert alert-error";
+  message.textContent = text;
+  setTimeout(() => { message.hidden = true; }, 5000);
 }
 
-
-// ============================================================
-// HTML ESCAPE
-// ============================================================
-
-function escapeHtml(value) {
-
-  return String(value ?? "")
-
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
-
-// ============================================================
-// LOGOUT
-// ============================================================
-
-logoutBtn.addEventListener(
-  "click",
-  () => {
-
-    localStorage.removeItem(
-      "siwes_user"
-    );
-
-
-    window.location.href =
-      "index.html";
-
-  }
-);
-
-
-// ============================================================
-// START
-// ============================================================
+$("logoutBtn").addEventListener("click", () => { localStorage.removeItem("siwes_user"); location.href = "index.html"; });
 
 loadUser();
-
-</script></body>
+</script>
+</body>
 </html>
